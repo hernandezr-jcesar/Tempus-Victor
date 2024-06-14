@@ -1,0 +1,168 @@
+.input-search {
+  width: 30vh;
+}
+
+.note-item {
+  display: flex;
+  align-items: center;
+  min-height: 5vh;
+  padding-top: 0%;
+  padding-bottom: 0%;
+}
+.note-item:hover {
+  background-color: #e0e0e0;
+  border-radius: 30px;
+  cursor: pointer;
+}
+.note-item.selected {
+  border: 3px solid;
+  border-radius: 30px;
+  border-color: #4d4d4d;
+}
+.contenedor-boton-calendario {
+  display: flex;
+  align-items: flex-start;
+}
+.form-check-input {
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(100, 100, 100, 0.996);
+}
+.Boton-Heisenhower {
+  height: 10vh;
+  border: 1px solid black;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  margin: 0;
+  font-weight: bold;
+}
+
+.Boton-Heisenhower:hover {
+  background-color: rgb(138, 184, 112);
+  cursor: pointer;
+}
+.imagen_Heisenhower {
+  width: 8vh;
+  height: 8vh;
+  margin: 0;
+}
+
+.imagen_boton {
+  width: 4vh;
+  height: 4vh;
+}
+.boton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  border-radius: 25px;
+  padding: 5px;
+}
+.boton:hover {
+  background-color: rgb(150, 150, 150);
+  cursor: pointer;
+}
+
+.contenedor-calendario {
+  // border: 1px solid black;
+  height: 80vh;
+}
+.calendario {
+  height: 80vh;
+}
+.tareas-del-dia {
+  background-color: rgb(250, 250, 250);
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  height: 40vh;
+  // border: 5px solid rgb(255, 0, 0);
+}
+.otras-tareas {
+  background-color: rgb(250, 250, 250);
+  height: 40vh;
+}
+
+.Tareas_Dia {
+  height: 33vh;
+  border: 3px solid rgb(234, 234, 234);
+  border-radius: 10px;
+  padding: 5px;
+}
+.otras_Tareas {
+  height: 33vh;
+  border: 3px solid rgb(234, 234, 234);
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.tarea_calendario {
+  background-color: rgb(255, 255, 255);
+  color: #000000;
+  border: 3px solid rgb(234, 234, 234);
+  border-radius: 20px;
+  height: 5vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  z-index: 2; /* Bring title to foreground */
+}
+.botones-container {
+  padding-top: 20px;
+}
+
+//////////////////// ANGULAR CALENDAR
+h3 {
+  margin: 0 0 10px;
+}
+
+.tareas_finalizadas {
+  display: flex;
+  text-align: center;
+}
+.tareas_vacio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30vh;
+  // border: 1px solid black;
+}
+/// Tarea en la lista
+.pomodoro-counter {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.pomodoro-image {
+  margin: 3px;
+}
+
+.imagen_Pomodoro {
+  width: 3vh;
+  height: 3vh;
+}
+.tarea_objeto {
+  width: 100%;
+  // border: 1px solid black;
+  display: flex;
+  align-items: center;
+}
+.tarea_inicio {
+  display: flex;
+  justify-content: start;
+}
+.tarea_final {
+  display: flex;
+  justify-content: start;
+}
+.modal-dialog-AYUDA {
+  max-width: 85%; /* Set modal width to 90% */
+  margin: 0 auto; /* Center the modal horizontally */
+}
+.imagen-carrusel {
+  width: 100%; /* Set image width to 100% of the modal content */
+  height: auto; /* Maintain image aspect ratio */
+  object-fit: cover; /* Maintain aspect ratio and cover the container */
+}

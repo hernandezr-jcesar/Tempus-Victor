@@ -1,0 +1,1130 @@
+<!-- TITULO DE LA PANTALLA/COMPONENTE -->
+<div class="row">
+  <div class="col-12">
+    <h1 class="titulo">SESIÓN POMODORO</h1>
+  </div>
+</div>
+<div class="overflow-y-auto CONTENEDOR">
+  <!-- TITULOS Y POMODOROS COMPLETADOS -->
+  <div class="row POMODOROS">
+    <div class="col-3"></div>
+    <!-- POMODOROS COMPLETADOS -->
+    <div class="col-6">
+      <div class="pomodoro-counter">
+        <div
+          class="pomodoros-completos"
+          *ngFor="let _ of range(this.pomodorosCompletados)"
+        >
+          <img
+            src="../../../../assets/pomodoro/Pomodoro.png"
+            alt="Tomato"
+            width="40"
+            height="40"
+          />
+        </div>
+        <div
+          class="pomodoro-image pomodoro-actual"
+          *ngFor="let _ of range(this.pomodorosActuales)"
+        >
+          <img
+            src="../../../../assets/pomodoro/Jitomate_sin_color.png"
+            alt="Tomato"
+            width="40"
+            height="40"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="col-3"></div>
+  </div>
+
+  <div class="row Contiene-todo">
+    <!-- Informacion de la tarea -->
+    <div class="col-3 Informacion_Tarea">
+      <div class="form-group">
+        <label for="Estimacion"
+          >Tiempo Estimado: {{ tiempoTotalEstimacion.horas }} hrs
+          {{ tiempoTotalEstimacion.minutos }} min</label
+        >
+        <div class="pomodoro-estimate">
+          <div
+            class="pomodoro-img-estimate"
+            *ngFor="let _ of range(this.sesionpomodoroactual.estimate)"
+          >
+            <img
+              src="../../../../assets/pomodoro/Pomodoro.png"
+              alt="Tomato"
+              width="30"
+              height="30"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="titulo">Titulo</label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="{{ task.title }}"
+          disabled
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="descripcion">Descripción</label>
+        <textarea
+          minlength="3"
+          rows="2"
+          cols="50"
+          class="form-control"
+          placeholder="{{ task.description }}"
+          disabled
+        ></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="comentarios">Comentarios</label>
+        <textarea
+          class="form-control"
+          id="comentarios"
+          rows="2"
+          cols="50"
+          placeholder="{{ task.comments }}"
+          disabled
+        ></textarea>
+      </div>
+      <div class="izquierda">
+        <button
+          matTooltip="BOTON PARA REGRESAR A LISTA DE TAREAS"
+          [matTooltipPosition]="'after'"
+          *ngIf="
+            this.sesionpomodoroactual.status == 'SinIniciar' ||
+            this.sesionpomodoroactual.status == 'Terminada' ||
+            this.sesionpomodoroactual.status == 'Pausada'
+          "
+          class="boton-cancelar nav-link"
+          (click)="Cancelar()"
+          [disabled]="this.sesionpomodoroactual.status == 'Corriendo'"
+        >
+          <img
+            src="../../../../assets/notes/Regresar.png"
+            alt="Logo"
+            class="imagen_boton"
+          />
+          Regresar
+        </button>
+        <div
+          class="sonido"
+          *ngIf="
+            this.sesionpomodoroactual.status == 'Corriendo' &&
+            this.RelojisPlaying == false
+          "
+        >
+          <button
+            matTooltip="BOTON PARA HABILITAR EL SONIDO DEL TEMPORIZADOR"
+            [matTooltipPosition]="'below'"
+            class="boton-habilitar-sonido nav-link"
+            (click)="HabilitarSonido()"
+            [disabled]="this.sesionpomodoroactual.status == 'Pausada'"
+          >
+            <img
+              src="../../../../assets/pomodoro/sonido.png"
+              alt="Logo"
+              class="imagen_boton_sonido"
+            />
+          </button>
+        </div>
+        <div class="sonido">
+          <button
+            matTooltip="BOTON PARA DESHABILITAR EL SONIDO DEL TEMPORIZADOR"
+            [matTooltipPosition]="'below'"
+            class="boton-habilitar-sonido nav-link"
+            (click)="DeshabilitarSonido()"
+            [disabled]="this.sesionpomodoroactual.status == 'Pausada'"
+            *ngIf="this.RelojisPlaying == true"
+          >
+            <img
+              src="../../../../assets/pomodoro/silencio.png"
+              alt="Logo"
+              class="imagen_boton_sonido"
+            />
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- POMODORO TIMER -->
+    <div class="col-6 pomodoro-timer">
+      <!-- LINEA TRABAJO Y DESCANSO -->
+      <div class="row Texto-barra-tiempo">
+        <div class="col-8 d-flex justify-content-center textoos1">
+          <div class="horizontal-line"></div>
+          <p class="tiempo-texto">Trabajo</p>
+          <div class="horizontal-line"></div>
+        </div>
+        <div class="col-4 d-flex justify-content-center textoos2">
+          <div class="horizontal-line"></div>
+          <p class="tiempo-texto">Descanso</p>
+          <div class="horizontal-line"></div>
+        </div>
+      </div>
+      <!-- BARRA DE PROGRESO -->
+      <div class="row barras-progreso">
+        <!-- BARRA DE TRABAJO -->
+        <div class="col-8 contenedor-barra">
+          <div
+            class="progress barra-progre"
+            role="progressbar"
+            aria-label="Animated Danger striped example"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          >
+            <div
+              class="progress-bar progress-bar-striped bg-danger progress-bar-animated"
+              [style.width]="trabajoWidth + '%'"
+            ></div>
+          </div>
+        </div>
+        <!-- BARRA DE DESCANSO -->
+        <div class="col-4 contenedor-barra">
+          <div
+            class="progress barra-progre"
+            role="progressbar"
+            aria-label="Animated Success striped example"
+            aria-valuenow="100"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          >
+            <div
+              class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+              [style.width]="descansoWidth + '%'"
+            ></div>
+          </div>
+        </div>
+      </div>
+      <!-- INFORMACION BARRA DE PROGRESO -->
+      <div class="row progress-bar-container" style="width: 100%">
+        <div
+          class="col-12 time-indicators"
+          *ngIf="this.sesionpomodoroactual.status == 'SinIniciar'"
+        >
+          <div class="pomodoro-indicator">
+            Trabajo ({{ tiemporestanteTrabajo.minutos }} min)
+          </div>
+          <div class="break-indicator">
+            Descanso ({{ tiemporestanteDescanso.minutos }} min)
+          </div>
+        </div>
+        <div
+          class="col-12 time-indicators"
+          *ngIf="this.sesionpomodoroactual.status != 'SinIniciar'"
+        >
+          <div class="pomodoro-indicator">
+            Restan ({{ tiemporestanteTrabajo.minutos }} min
+            {{ tiemporestanteTrabajo.segundos }} seg)
+          </div>
+          <div class="break-indicator">
+            Restan ({{ tiemporestanteDescanso.minutos }} min
+            {{ tiemporestanteDescanso.segundos }} seg)
+          </div>
+        </div>
+      </div>
+      <!-- IMAGEN DE FONDO PIXELART -->
+      <div
+        *ngIf="sesionpomodoroactual.status == 'Corriendo' && this.trabajando"
+      >
+        <img
+          [src]="this.imagenesTrabajo[this.selectedImageTrabajo].image"
+          alt="Imagen Trabajo"
+          class="Imagen_Fondo"
+        />
+      </div>
+      <div
+        *ngIf="sesionpomodoroactual.status == 'Corriendo' && this.descansando"
+      >
+        <img
+          [src]="this.imagenesDescanso[this.selectedImageDescanso].image"
+          alt="Imagen Descanso"
+          class="Imagen_Fondo"
+        />
+      </div>
+      <div
+        *ngIf="
+          sesionpomodoroactual.status == 'SinIniciar' ||
+          sesionpomodoroactual.status == 'Abandonada' ||
+          sesionpomodoroactual.status == 'Terminada' ||
+          sesionpomodoroactual.status == 'Pausada'
+        "
+      >
+        <img
+          [src]="this.imagenesAbandonado[this.selectedImageAbandonado].image"
+          alt="Imagen Abandonado"
+          class="Imagen_Fondo"
+        />
+      </div>
+      <!-- Botones del temporizador -->
+      <div class="button-group">
+        <div
+          class="reiniciar-sesion"
+          *ngIf="this.sesionpomodoroactual.status != 'SinIniciar'"
+        >
+          <button
+            matTooltip="BOTON PARA RESETEAR LA SESION POMODORO ACTUAL"
+            [matTooltipPosition]="'above'"
+            class="reset-button"
+            data-bs-toggle="modal"
+            data-bs-target="#modalResetSesion"
+          >
+            <img
+              src="../../../../assets/pomodoro/Reiniciar.png"
+              alt="Logo"
+              class="imagen_boton"
+            />
+          </button>
+          <p>Reiniciar</p>
+        </div>
+
+        <div
+          class="empezar-sesion"
+          *ngIf="this.sesionpomodoroactual.status == 'SinIniciar'"
+        >
+          <button
+            matTooltip="BOTON PARA INICIAR LA SESION POMODORO ACTUAL"
+            [matTooltipPosition]="'above'"
+            class="play-button"
+            [disabled]="
+              this.sesionpomodoroactual.status == 'Corriendo' ||
+              this.sesionpomodoroactual.status == 'Terminada'
+            "
+            data-bs-toggle="modal"
+            data-bs-target="#modalEmpezarSesion"
+          >
+            <img
+              src="../../../../assets/pomodoro/Play.png"
+              alt="Logo"
+              class="imagen_boton"
+            />
+          </button>
+          <p>Iniciar</p>
+        </div>
+        <div
+          class="empezar-sesion"
+          *ngIf="this.sesionpomodoroactual.status != 'SinIniciar'"
+        >
+          <button
+            matTooltip="BOTON REANUDAR LA SESION POMODORO ACTUAL"
+            [matTooltipPosition]="'above'"
+            class="play-button"
+            [disabled]="
+              this.sesionpomodoroactual.status == 'Corriendo' ||
+              this.sesionpomodoroactual.status == 'Terminada'
+            "
+            (click)="ContinuarSesion()"
+          >
+            <img
+              src="../../../../assets/pomodoro/Continuar.png"
+              alt="Logo"
+              class="imagen_boton"
+            />
+          </button>
+          <p>Reanudar</p>
+        </div>
+
+        <div class="pausar-sesion">
+          <button
+            matTooltip="BOTON PARA PAUSAR LA SESION POMODORO ACTUAL"
+            [matTooltipPosition]="'above'"
+            class="pause-button"
+            [disabled]="
+              this.sesionpomodoroactual.status == 'SinIniciar' ||
+              this.sesionpomodoroactual.status == 'Pausada' ||
+              this.sesionpomodoroactual.status == 'Terminada'
+            "
+            data-bs-toggle="modal"
+            data-bs-target="#modalPausarSesion"
+          >
+            <img
+              src="../../../../assets/pomodoro/Pause.png"
+              alt="Logo"
+              class="imagen_boton"
+            />
+          </button>
+          <p>Pausar</p>
+        </div>
+
+        <div class="terminar-sesion">
+          <button
+            matTooltip="BOTON PARA TERMINAR LA SESION POMODORO ACTUAL"
+            [matTooltipPosition]="'above'"
+            class="end-button"
+            [disabled]="
+              this.sesionpomodoroactual.status == 'SinIniciar' ||
+              this.sesionpomodoroactual.status == 'Terminada'
+            "
+            data-bs-toggle="modal"
+            data-bs-target="#modalEndSesion"
+          >
+            <img
+              src="../../../../assets/pomodoro/Stop.png"
+              alt="Logo"
+              class="imagen_boton"
+            />
+          </button>
+          <p>Terminar</p>
+        </div>
+      </div>
+    </div>
+    <!-- Informacion de Tiempos -->
+    <div class="col-3 centrar-Tiempos">
+      <div class="contador_tiempo">
+        <h4>Trabajo Actual</h4>
+        <div class="tiempo-total">
+          {{ currentTimeTrabajo.minutos | padTo2Digits }} :
+          {{ currentTimeTrabajo.segundos | padTo2Digits }}
+        </div>
+      </div>
+      <div class="contador_tiempo">
+        <h4>Descanso Actual</h4>
+        <div class="tiempo-total">
+          {{ currentTimeDescanso.minutos | padTo2Digits }} :
+          {{ currentTimeDescanso.segundos | padTo2Digits }}
+        </div>
+      </div>
+      <div class="contador_tiempo">
+        <h4>Trabajo Total</h4>
+        <div class="tiempo-total">
+          {{ tiempoTrabajoTotal.horas | padTo2Digits }} :
+          {{ tiempoTrabajoTotal.minutos | padTo2Digits }} :
+          {{ tiempoTrabajoTotal.segundos | padTo2Digits }}
+        </div>
+      </div>
+      <div class="contador_tiempo">
+        <h4>Descanso Total</h4>
+        <div class="tiempo-total">
+          {{ tiempoDescansoTotal.horas | padTo2Digits }} :
+          {{ tiempoDescansoTotal.minutos | padTo2Digits }} :
+          {{ tiempoDescansoTotal.segundos | padTo2Digits }}
+        </div>
+      </div>
+      <div class="contador_tiempo">
+        <h4>Tiempo Total Sesion</h4>
+        <div class="tiempo-total">
+          {{ tiempoTotalCompleto.horas | padTo2Digits }} :
+          {{ tiempoTotalCompleto.minutos | padTo2Digits }} :
+          {{ tiempoTotalCompleto.segundos | padTo2Digits }}
+        </div>
+      </div>
+      <div class="contador_tiempo">
+        <a
+          matTooltip="BOTON PARA OBTENER AYUDA SOBRE LA PANTALLA DE SESIÓN POMODORO"
+          [matTooltipPosition]="'below'"
+          class="boton nav-link"
+          routerLink="help-notes"
+          data-bs-toggle="modal"
+          data-bs-target="#AyudaModal"
+        >
+          Ayuda<img
+            src="../../../../assets/notes/Ayuda.png"
+            alt="Logo"
+            class="imagen_boton_ayuda"
+        /></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Para Finalizar Tarea-->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+  data-bs-backdrop="static"
+  #confirmationModal
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Completar Tarea</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="CancelarModal()"
+        ></button>
+      </div>
+      <div class="modal-body">¿Deseas completar la Tarea?</div>
+      <div class="text-center">
+        <img
+          src="../../../../assets/BERT/Bert_Preguntar.gif"
+          style="width: 40vh"
+        />
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          (click)="CancelarModal()"
+        >
+          Cancelar
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+          (click)="endTimer()"
+        >
+          Completar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Para empezar Sesion Pomodoro -->
+<div
+  class="modal fade"
+  id="modalEmpezarSesion"
+  tabindex="-1"
+  aria-labelledby="modalEmpezarSesionLabel"
+  aria-hidden="true"
+  data-bs-backdrop="static"
+  #confirmationModal
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modalEmpezarSesionLabel">
+          Empezar Sesion Pomodoro
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="CancelarModal()"
+        ></button>
+      </div>
+      <div class="modal-body">¿Deseas Empezar la sesion?</div>
+      <div class="text-center">
+        <img
+          src="../../../../assets/BERT/Bert_Pomodoro.gif"
+          style="width: 40vh"
+        />
+      </div>
+
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          (click)="CancelarModal()"
+        >
+          Cancelar
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+          (click)="EmpezarSesionModal()"
+        >
+          Empezar Sesion
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Para pausar Sesion Pomodoro -->
+<div
+  class="modal fade"
+  id="modalPausarSesion"
+  tabindex="-1"
+  aria-labelledby="modalPausarSesionLabel"
+  aria-hidden="true"
+  data-bs-backdrop="static"
+  #confirmationModal
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modalPausarSesionLabel">
+          Pausar Sesion Pomodoro
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="CancelarModal()"
+        ></button>
+      </div>
+      <div class="modal-body">
+        ¿Deseas Pausar la sesion?, esto pausara la sesion actual
+      </div>
+      <div class="text-center">
+        <img
+          src="../../../../assets/BERT/Bert_Descansar.gif"
+          style="width: 40vh"
+        />
+      </div>
+
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          (click)="CancelarModal()"
+        >
+          Cancelar
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+          (click)="pauseTimer()"
+        >
+          Pausar Sesion
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Para Reiniciar Sesion Pomodoro -->
+<div
+  class="modal fade"
+  id="modalResetSesion"
+  tabindex="-1"
+  aria-labelledby="modalResetSesionLabel"
+  aria-hidden="true"
+  data-bs-backdrop="static"
+  #confirmationModal
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modalResetSesionLabel">
+          Reiniciar Sesion Pomodoro
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="CancelarModal()"
+        ></button>
+      </div>
+      <div class="modal-body">¿Deseas Reiniciar la sesion?</div>
+      <div class="text-center">
+        <img
+          src="../../../../assets/BERT/Bert_ReiniciarSesion.gif"
+          style="width: 40vh"
+        />
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          (click)="CancelarModal()"
+        >
+          Cancelar
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+          (click)="resetTimer()"
+        >
+          Reiniciar Sesion
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Para Terminar Sesion Pomodoro -->
+<div
+  class="modal fade"
+  id="modalEndSesion"
+  tabindex="-1"
+  aria-labelledby="modalEndSesionLabel"
+  aria-hidden="true"
+  data-bs-backdrop="static"
+  #confirmationModal
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modalEndSesionLabel">
+          Terminar Sesion Pomodoro
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="CancelarModal()"
+        ></button>
+      </div>
+      <div class="modal-body">¿Deseas Terminar la sesion actual?</div>
+      <div class="text-center">
+        <img
+          src="../../../../assets/BERT/Bert_TerminarSesion.gif"
+          style="width: 40vh"
+        />
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          (click)="CancelarModal()"
+        >
+          Cancelar
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+          (click)="endTimer()"
+        >
+          Terminar Sesion
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal para Completar Tarea -->
+<ng-template #templateCompletarTarea>
+  <div class="modal-header">
+    <h4 class="modal-title text-center">COMPLETAR TAREA</h4>
+  </div>
+  <div class="modal-body text-center">
+    <p>¿Tambien quieres completar la tarea?</p>
+    <img src="../../../../assets/BERT/Bert_Preguntar.gif" style="width: 40vh" />
+    <div class="Botones_sesion_abandonada">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="pauseSound(this.SonidoAlarma)"
+        (click)="pauseSound(this.SonidoReloj)"
+        (click)="modalRef.hide()"
+        (click)="CancelarModal()"
+        (click)="Cancelar()"
+      >
+        No Completar Tarea
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="pauseSound(this.SonidoAlarma)"
+        (click)="pauseSound(this.SonidoReloj)"
+        (click)="modalRef.hide()"
+        (click)="CompletarTarea()"
+      >
+        Si Completar Tarea
+      </button>
+    </div>
+  </div>
+</ng-template>
+<!-- Modal para empezar Descanso -->
+<ng-template #templateDescanso>
+  <div class="modal-header">
+    <img
+      src="../../../../assets/pomodoro/Timer.png"
+      alt="Logo"
+      class="imagen_boton"
+    />
+    <h4 class="modal-title text-center">TIEMPO DE TRABAJO COMPLETADO</h4>
+    <img
+      src="../../../../assets/pomodoro/Timer.png"
+      alt="Logo"
+      class="imagen_boton"
+    />
+  </div>
+  <div class="modal-body text-center Alerta-termino">
+    <div>
+      <p>¡¡¡ Hora de tomar un descanso !!!</p>
+      <img src="../../../../assets/BERT/Bert_Cansado.gif" style="width: 40vh" />
+    </div>
+    <div>
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="pauseSound(this.SonidoAlarma)"
+        (click)="playSound(this.SonidoReloj)"
+        (click)="modalRef.hide()"
+        (click)="startDescansoConteo()"
+      >
+        Empezar Descanso
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Modal para empezar Trabajo -->
+<ng-template #templateTrabajo>
+  <div class="modal-header">
+    <img
+      src="../../../../assets/pomodoro/Timer.png"
+      alt="Logo"
+      class="imagen_boton"
+    />
+    <h4 class="modal-title text-center">TIEMPO DE DESCANSO COMPLETADO</h4>
+    <img
+      src="../../../../assets/pomodoro/Timer.png"
+      alt="Logo"
+      class="imagen_boton"
+    />
+  </div>
+  <div class="modal-body text-center Alerta-termino">
+    <div>
+      <p>¡¡¡ Hora de seguir trabajando !!!</p>
+
+      <img
+        src="../../../../assets/BERT/Bert_Trabajar.gif"
+        style="width: 40vh"
+      />
+    </div>
+    <div>
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="pauseSound(this.SonidoAlarma)"
+        (click)="playSound(this.SonidoReloj)"
+        (click)="modalRef.hide()"
+        (click)="empezarNuevoPomodoro()"
+      >
+        Seguir Trabajando
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Modal para iniciar en Sesion Pausada -->
+<ng-template #templateSesionPausada>
+  <div class="modal-header">
+    <h4 class="modal-title text-center">SESION POMODORO PAUSADA</h4>
+  </div>
+  <div class="modal-body text-center">
+    <p>¡¡¡ Parece que pausaste la sesión, ¿Que quieres hacer ahora?!!!</p>
+    <div class="text-center">
+      <img src="../../../../assets/BERT/Bert_Ansioso.gif" style="width: 40vh" />
+    </div>
+    <div class="Botones_sesion_abandonada">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="pauseSound(this.SonidoAlarma)"
+        (click)="pauseSound(this.SonidoReloj)"
+        (click)="modalRef.hide()"
+        (click)="Cancelar()"
+      >
+        Regresar
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="pauseSound(this.SonidoAlarma)"
+        (click)="pauseSound(this.SonidoReloj)"
+        (click)="modalRef.hide()"
+        (click)="ContinuarSesion()"
+      >
+        Reanudar Sesión
+      </button>
+    </div>
+  </div>
+</ng-template>
+<!-- Modal para iniciar en Sesion Abandonada -->
+<ng-template #templateSesionAbandonada>
+  <div class="modal-header">
+    <h4 class="modal-title text-center">SESION POMODORO ABANDONADA</h4>
+  </div>
+  <div class="modal-body text-center">
+    <p>
+      ¡¡¡ Desafortunadamante abandonaste la sesión ¿Que quieres hacer ahora? !!!
+    </p>
+    <div class="text-center">
+      <img
+        src="../../../../assets/BERT/Bert_Abandonado.gif"
+        style="width: 40vh"
+      />
+    </div>
+    <div class="Botones_sesion_abandonada">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="pauseSound(this.SonidoAlarma)"
+        (click)="pauseSound(this.SonidoReloj)"
+        (click)="modalRef.hide()"
+        (click)="Cancelar()"
+      >
+        Regresar
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="pauseSound(this.SonidoAlarma)"
+        (click)="pauseSound(this.SonidoReloj)"
+        (click)="modalRef.hide()"
+        (click)="ContinuarSesion()"
+      >
+        Reanudar Sesión
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Modal para iniciar en Sesion Terminada -->
+<ng-template #templateSesionTerminada>
+  <div class="modal-header">
+    <h4 class="modal-title">SESION POMODORO TERMINADA</h4>
+  </div>
+  <div class="modal-body text-center">
+    <p>
+      ¡¡¡ Bienvenido a una sesion Terminada, lo unico que puedes hacer es ver el
+      historial de la sesion ó reiniciar la sesion !!!
+    </p>
+    <div class="text-center">
+      <img
+        src="../../../../assets/BERT/Bert_Preguntar.gif"
+        style="width: 40vh"
+      />
+    </div>
+    <div class="Botones_sesion_terminada">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="modalRef.hide()"
+        (click)="Cancelar()"
+      >
+        Regresar
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="pauseSound(this.SonidoAlarma)"
+        (click)="pauseSound(this.SonidoReloj)"
+        (click)="modalRef.hide()"
+        (click)="AbandonarSesion()"
+      >
+        Ver historial Tarea
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="pauseSound(this.SonidoAlarma)"
+        (click)="pauseSound(this.SonidoReloj)"
+        (click)="modalRef.hide()"
+        (click)="resetTimer()"
+      >
+        Reiniciar la Sesión
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Modal  Ayuda-->
+<div
+  class="modal fade"
+  id="AyudaModal"
+  tabindex="-1"
+  aria-labelledby="AyudaModalLabel"
+  aria-hidden="true"
+  data-bs-backdrop="static"
+  #confirmationModal
+>
+  <div class="modal-dialog modal-dialog-centered modal-dialog-ayuda">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="AyudaModalLabel">Ayuda</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="CancelarModal()"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <carousel [interval]="0" [isAnimated]="true">
+          <slide>
+            <img
+              src="../../../assets/AyudaImagenes/Pomodoro/1.png"
+              alt="Second slide"
+              style="display: block; width: 100%"
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <h5>
+                Para Acceder a Una Sesión Pomodoro, solo da click en Pomodoro
+              </h5>
+            </div>
+          </slide>
+          <slide>
+            <img
+              src="../../../assets/AyudaImagenes/Pomodoro/2.png"
+              alt="Second slide"
+              style="display: block; width: 100%"
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <h5>
+                Tienes que estimar en Pomodororos el tiemo que creas te tomara
+                la Sesión
+              </h5>
+            </div>
+          </slide>
+          <slide>
+            <img
+              src="../../../assets/AyudaImagenes/Pomodoro/3.png"
+              alt="Second slide"
+              style="display: block; width: 100%"
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Una Tarea no te puede llevar más de 4 Pomodoros</h5>
+            </div>
+          </slide>
+          <slide>
+            <img
+              src="../../../assets/AyudaImagenes/Pomodoro/4.png"
+              alt="Second slide"
+              style="display: block; width: 100%"
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Puedes Empezar la Sesión solo si la estimas</h5>
+            </div>
+          </slide>
+          <slide>
+            <img
+              src="../../../assets/AyudaImagenes/Pomodoro/5.png"
+              alt="Second slide"
+              style="display: block; width: 100%"
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Vista de Temporizador Pomodoro de la Sesión empezada</h5>
+            </div>
+          </slide>
+          <slide>
+            <img
+              src="../../../assets/AyudaImagenes/Pomodoro/6.png"
+              alt="Second slide"
+              style="display: block; width: 100%"
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Puedes iniciar la Sesión con el boton de Iniciar</h5>
+            </div>
+          </slide>
+          <slide>
+            <img
+              src="../../../assets/AyudaImagenes/Pomodoro/7.png"
+              alt="Second slide"
+              style="display: block; width: 100%"
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <h5>El tiempo correra y la barra de progreso avanzara</h5>
+            </div>
+          </slide>
+          <slide>
+            <img
+              src="../../../assets/AyudaImagenes/Pomodoro/8.png"
+              alt="Second slide"
+              style="display: block; width: 100%"
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Puedes Pausar la Sesión con el boton de Pausar</h5>
+            </div>
+          </slide>
+          <slide>
+            <img
+              src="../../../assets/AyudaImagenes/Pomodoro/9.png"
+              alt="Second slide"
+              style="display: block; width: 100%"
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Puedes Terminar la Sesión con el boton de Terminar</h5>
+            </div>
+          </slide>
+          <slide>
+            <img
+              src="../../../assets/AyudaImagenes/Pomodoro/10.png"
+              alt="Second slide"
+              style="display: block; width: 100%"
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Puedes Reiniciar la Sesión con el boton de Reiniciar</h5>
+            </div>
+          </slide>
+          <slide>
+            <img
+              src="../../../assets/AyudaImagenes/Pomodoro/11.png"
+              alt="Second slide"
+              style="display: block; width: 100%"
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Una vez completado el tiempo de trabajo sonara una Alarma</h5>
+            </div>
+          </slide>
+          <slide>
+            <img
+              src="../../../assets/AyudaImagenes/Pomodoro/12.png"
+              alt="Second slide"
+              style="display: block; width: 100%"
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <h5>
+                Una vez completado el tiempo de descanso sonara una Alarma
+              </h5>
+            </div>
+          </slide>
+          <slide>
+            <img
+              src="../../../assets/AyudaImagenes/Pomodoro/13.png"
+              alt="Second slide"
+              style="display: block; width: 100%"
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <h5>
+                La sesion se Abandona si no interactuas con las alarmas por 3
+                minutos
+              </h5>
+            </div>
+          </slide>
+          <slide>
+            <img
+              src="../../../assets/AyudaImagenes/Pomodoro/14.png"
+              alt="Second slide"
+              style="display: block; width: 100%"
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <h5>
+                Cuando completes un pomodoro este se agregara en la parte
+                superior
+              </h5>
+            </div>
+          </slide>
+
+          <!-- <slide
+            *ngFor="let imagen of imagenesAyuda; let index = index"
+            class="slide"
+          >
+            <img
+              [src]="imagen.image"
+              alt="image slide"
+              class="imagen-carrusel"
+            />
+          </slide> -->
+        </carousel>
+      </div>
+      <!-- <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          (click)="CancelarModal()"
+        >
+          Regresar
+        </button>
+      </div> -->
+    </div>
+  </div>
+</div>

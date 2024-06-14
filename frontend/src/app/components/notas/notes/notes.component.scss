@@ -1,0 +1,101 @@
+.input-search {
+  width: 30vh;
+}
+
+p {
+  // border: 1px solid black;
+  margin: 0; /* Remove default margin for better alignment */
+}
+
+.notes-container {
+  height: 75vh;
+  overflow-y: scroll;
+  border: 3px solid rgb(234, 234, 234);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.note-header {
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+}
+
+.note-date-container {
+  display: flex; /* Make dates side-by-side */
+  align-items: center; /* Align dates vertically */
+  justify-content: end;
+  margin-top: auto; /* Move dates to bottom within .note-header */
+}
+.note-item {
+  display: flex;
+  align-items: center;
+  padding-top: 0%;
+  padding-bottom: 0%;
+}
+.note-item:hover {
+  background-color: #e0e0e0;
+  border-radius: 30px;
+  cursor: pointer;
+}
+.note-item.selected {
+  border: 5px solid;
+  border-radius: 30px;
+  border-color: #4d4d4d;
+}
+
+.note-date {
+  // font-size: 0.8rem; /* Adjust font size for date information */
+  color: #888; /* Set a subtle color for dates */
+  align-items: center;
+  align-self: center;
+  align-content: center;
+  margin-right: 10px; /* Add 10px space between dates */
+  margin-left: 10px; /* Add 10px space between dates */
+}
+
+.imagen_boton {
+  width: 5vh;
+  height: 5vh;
+}
+
+.boton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 15vh;
+  border-radius: 25px;
+}
+.boton:hover {
+  background-color: rgb(150, 150, 150);
+  cursor: pointer;
+}
+
+.titulo {
+  height: 10vh;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.notas_vacio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 70vh;
+  // border: 1px solid black;
+}
+.col-12 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.modal-dialog-AYUDA {
+  max-width: 85%; /* Set modal width to 90% */
+  margin: 0 auto; /* Center the modal horizontally */
+}
+.imagen-carrusel {
+  width: 100%; /* Set image width to 100% of the modal content */
+  height: auto; /* Maintain image aspect ratio */
+  object-fit: cover; /* Maintain aspect ratio and cover the container */
+}

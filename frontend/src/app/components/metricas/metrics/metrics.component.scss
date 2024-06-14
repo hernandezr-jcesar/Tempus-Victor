@@ -1,0 +1,92 @@
+.centrar-pantalla {
+  height: 90vh;
+
+  padding: 2vh;
+}
+
+.div-centrado {
+  height: 100%;
+  border-radius: 30px;
+  padding: 5vh;
+  background-color: #ffffff;
+  border: 10px solid rgb(105, 105, 105);
+}
+
+.Grafica {
+  height: 80%;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  // border: 1px solid rgb(238, 0, 0);
+}
+.ContenedorGrafica {
+  // border: 1px solid black;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+.ContenedorInfo {
+  border: 3px solid rgb(100, 100, 100);
+  padding: 10px;
+  border-radius: 20px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+}
+.imagen_boton {
+  width: 7vh;
+  height: 7vh;
+}
+.boton_regresar {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+  width: 25vh;
+  border-radius: 50px;
+}
+.boton_regresar:hover {
+  background-color: rgba(200, 200, 200);
+  cursor: pointer;
+}
+.Vacio {
+  padding-top: 200px;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  text-align: center;
+  // border: 1px solid black;
+}
+.modal-dialog {
+  max-width: 85%; /* Set modal width to 90% */
+  margin: 0 auto; /* Center the modal horizontally */
+}
+.imagen-carrusel {
+  width: 100%; /* Set image width to 100% of the modal content */
+  height: auto; /* Maintain image aspect ratio */
+  object-fit: cover; /* Maintain aspect ratio and cover the container */
+}
+
+.imagen_boton {
+  width: 5vh;
+  height: 5vh;
+}
+
+.boton {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  width: 25vh;
+  border-radius: 25px;
+}
+.boton:hover {
+  background-color: rgb(150, 150, 150);
+  cursor: pointer;
+}

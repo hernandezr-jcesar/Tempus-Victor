@@ -1,0 +1,76 @@
+<div class="centrar-pantalla">
+  <div class="div-centrado">
+    <div class="row centrar-row">
+      <div class="col-6 d-flex justify-content-start">
+        <h1 class="titulo">HISTORIAL DE TAREA</h1>
+      </div>
+
+      <div class="col-6 d-flex justify-content-center">
+        <div class="form-group">
+          <label for="titulo" class="form-label">Titulo Tarea:</label>
+          <input
+            type="text"
+            class="form-control titulo_tarea"
+            placeholder="{{ task.title }}"
+            disabled
+          />
+        </div>
+      </div>
+      <div class="col-6">
+        <h4>Eventos de la Tarea</h4>
+      </div>
+      <div class="col-6">
+        <h4>Eventos sesion Pomodoro</h4>
+      </div>
+      <div class="col-6 eventos overflow-y-auto d-flex justify-content-center">
+        <div class="padding">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item note-item" *ngFor="let event of eventos">
+              <pre
+                >{{ event.description }}
+                  {{ event.createdAt | date : "fullDate" }} | {{
+                  event.createdAt | date : "mediumTime"
+                }}</pre
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-6 eventos overflow-y-auto d-flex justify-content-center">
+        <div class="padding">
+          <ul class="list-group list-group-flush">
+            <li
+              class="list-group-item note-item"
+              *ngFor="let eventPomodoro of pomodoroEvents"
+            >
+              <pre
+                >{{ eventPomodoro.description }}
+              {{ eventPomodoro.createdAt | date : "fullDate" }} | {{
+                  eventPomodoro.createdAt | date : "mediumTime"
+                }}</pre
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6 izquierda">
+          <a
+            matTooltip="BOTON PARA REGRESAR A LISTA DE TAREAS"
+            [matTooltipPosition]="'before'"
+            class="boton-regresar nav-link"
+            (click)="Cancelar()"
+          >
+            <img
+              src="../../../assets/tasks/Regresar.png"
+              alt="Logo"
+              class="imagen_boton"
+            />
+            Regresar
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

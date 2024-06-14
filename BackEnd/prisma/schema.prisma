@@ -1,0 +1,126 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  idUser   Int      @id @default(autoincrement())  
+  username  String
+  email     String  @unique
+  password String   
+  image   String? @db.LongText
+  
+  setting Setting?
+  notes Note[]
+  tasks Task[]
+  categories Category[]
+  
+}
+model Setting{
+  idSetting Int @id @default(autoincrement())
+  pomodoroWorkDuration Int
+  shortBreakDuration  Int  
+  longBreakDuration Int
+  workImg Int
+  breakImg Int
+  neglectedImg Int
+  alarmSound Int
+  tictacSound Int
+  userId Int  @unique
+  user User @relation(fields: [userId], references: [idUser], onDelete: Cascade)
+}
+
+
+
+model Note {
+  idNote      Int      @id @default(autoincrement())  
+  createdAt DateTime 
+  updatedAt DateTime @updatedAt
+  title    String   @db.VarChar(255)
+  description   String @db.Text
+  archived Boolean @default(false)  
+
+  userId Int 
+  user User @relation(fields: [userId], references: [idUser], onDelete: Cascade)
+}
+
+
+
+model Task {
+  idTask   Int    @id @default(autoincrement())
+  title      String @db.VarChar(255)
+  description String @db.Text
+  comments String? @db.Text
+  deadline DateTime?  
+  importance Boolean @default(false)
+  urgency Boolean  @default(false)
+  status Boolean @default(false)  
+  pomodoroEstimacion Int?
+
+  userId Int 
+  user User @relation(fields: [userId], references: [idUser], onDelete: Cascade)
+  categoryId Int? 
+  category  Category? @relation(fields: [categoryId], references: [idCategory])  
+  pomodoroSession PomodoroSession?
+  events Event[] 
+  
+}
+
+model Event{
+  idEvent Int @id @default(autoincrement())
+  createdAt DateTime   
+  description String @db.Text  
+
+  taskId Int  
+  task Task @relation(fields: [taskId], references: [idTask], onDelete: Cascade)
+  
+}
+model Category {
+  idCategory Int  @id @default(autoincrement())      
+  name String @db.VarChar(255)    
+  isPersonalized Boolean  //"predefined = false" or "personalized = true" 
+
+  userId Int? 
+  user User? @relation(fields: [userId], references: [idUser], onDelete: Cascade)  
+  tasks Task[]
+}
+
+
+
+model PomodoroSession{
+  idPomodoro Int @id @default(autoincrement())  
+  status String
+  completedPomodoros Int
+  startTime DateTime?
+  endTime DateTime?   //null for ongoind sessions
+  estimate Int //pomodoros, estimated quantity to complete the task
+  totalTimeElapsed Int //seconds, can be null for initial state
+  workTimeElapsed Int //seconds, can be null for initial state
+  breakTimeElapsed Int //seconds, can be null for initial state
+  remainingWorkTime Int //seconds, can be null for initial state
+  remainingBreakTime Int //seconds, can be null for initial state
+  currentWorkTime Int //seconds, can be null for initial state
+  currentBreakTime Int //seconds, can be null for initial state
+  working Boolean?
+  resting  Boolean?
+  taskId Int? @unique
+  task Task?   @relation(fields: [taskId], references: [idTask], onDelete: Cascade)
+  pomodoroEvents PomodoroEvent[]
+}
+model PomodoroEvent{
+  idPomodoroEvent Int @id @default(autoincrement())
+  createdAt DateTime   
+  description String @db.Text  
+
+  pomodoroSessionId Int 
+  session PomodoroSession @relation(fields: [pomodoroSessionId], references: [idPomodoro], onDelete: Cascade)
+  
+}
+
+
+

@@ -1,0 +1,36 @@
+.centrar-pantalla {
+  height: 90vh;
+  padding: 2vh;
+}
+
+.div-centrado {
+  height: 100%;
+  border-radius: 30px;
+  padding: 5vh;
+  background-color: #ffffff;
+  border: 10px solid rgb(105, 105, 105);
+}
+
+.llamada-a-la-accion {
+  text-align: center;
+}
+.comenzar-ahora {
+  background-color: #9ea0a0;
+  color: #000000;
+  font-size: 16px;
+  font-weight: normal;
+  text-align: center;
+  border-radius: 5px;
+  margin: 10px 0;
+  width: 200px;
+}
+.comenzar-ahora:hover {
+  background-color: #007345;
+}
+.boton-centrado {
+  display: flex;
+  justify-content: center;
+}
+h1 {
+  text-align: center;
+}

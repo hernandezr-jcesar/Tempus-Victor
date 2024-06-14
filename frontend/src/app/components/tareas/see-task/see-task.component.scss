@@ -1,0 +1,146 @@
+.centrar-pantalla {
+  // height: 100%;
+  height: 90vh;
+  padding: 2vh;
+}
+
+.div-centrado {
+  height: 100%;
+  border-radius: 30px;
+  padding: 3vh;
+  background-color: #ffffff;
+  border: 10px solid rgb(105, 105, 105);
+}
+
+.imagen_boton {
+  width: 8vh;
+  height: 8vh;
+}
+
+.boton-regresar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 10vh;
+  border-radius: 25px;
+}
+.boton-regresar:hover {
+  background-color: rgb(120, 120, 120);
+  cursor: pointer;
+}
+
+.izquierda {
+  display: flex;
+  justify-content: start;
+}
+
+.centrar-row {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  height: 100%;
+}
+
+.titulo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.date-time-container {
+  display: flex; /* Make dates side-by-side */
+  align-items: center; /* Align dates vertically */
+  padding-top: 3vh;
+  gap: 30px;
+  // border: 2px solid black;
+}
+
+.categoria-container {
+  display: flex; /* Make dates side-by-side */
+  flex-direction: row; /* Stack elements vertically */
+  align-items: center; /* Align dates vertically */
+  justify-content: center;
+  width: 100%;
+  padding-top: 3vh;
+  gap: 30px;
+  // border: 2px solid black;
+}
+
+.p-calendar {
+  background-color: rgb(200, 200, 200);
+  border-radius: 8px;
+}
+
+.btn {
+  margin-right: 10px; /* Add 10px space between dates */
+  margin-left: 10px; /* Add 10px space between dates */
+}
+
+.form-opcionales {
+  // border: 1px solid rgb(102, 0, 255);
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding-left: 10vh;
+}
+
+.importancia {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  // border: 1px solid rgb(0, 5, 3);
+}
+.urgencia {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  // border: 1px solid rgb(0, 5, 3);
+}
+.importancia_urgencia {
+  width: 100%;
+  padding: 8px;
+}
+
+.switch-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(200, 200, 200);
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.no,
+.si {
+  font-weight: lighter;
+  color: #909090;
+}
+
+.no {
+  margin-right: 10px;
+}
+
+.si {
+  margin-left: 10px;
+}
+
+.Espacio {
+  // border: 1px solid black;
+  display: flex;
+  gap: 30px;
+}
+.Imagen-categoria {
+  width: 4vh;
+  height: 4vh;
+}
+.SelectCategory {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 15px;
+  // border: 1px solid black;
+}

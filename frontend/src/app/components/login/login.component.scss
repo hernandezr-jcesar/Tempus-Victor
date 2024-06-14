@@ -1,0 +1,34 @@
+.centrar-pantalla {
+  height: 90vh;
+  padding: 2vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.formulario-container {
+  width: 600px;
+  margin: auto; /* Margen automático para centrar */
+  padding: 5vh;
+  border: 3px solid #000000; /* Borde para visualización */
+  border-radius: 20px; /* Bordes redondeados */
+  background-color: rgb(255, 255, 255);
+}
+
+.form-group {
+  margin-bottom: 30px;
+}
+.form-label {
+  color: rgb(0, 0, 0);
+}
+
+.btn-login {
+  background-color: rgba(23, 169, 1, 0.25);
+  border: 3px solid rgb(0, 159, 26);
+  color: rgb(0, 103, 23);
+}
+.btn-login:active {
+  background-color: rgba(23, 169, 1);
+  border: 3px solid rgb(0, 159, 26);
+  color: rgb(0, 103, 23);
+}

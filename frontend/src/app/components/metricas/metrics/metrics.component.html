@@ -1,0 +1,149 @@
+<div class="centrar-pantalla">
+  <div class="div-centrado">
+    <div class="row">
+      <div class="col-2 align-self-start izquierda">
+        <a
+          matTooltip="BOTON PARA REGRESAR A LISTA DE TAREAS"
+          [matTooltipPosition]="'after'"
+          class="boton_regresar nav-link"
+          (click)="Regresar()"
+        >
+          <img
+            src="../../../../assets/notes/Regresar.png"
+            alt="Logo"
+            class="imagen_boton"
+          />
+          Regresar
+        </a>
+      </div>
+      <div class="col-8"><h1 class="text-center">Métricas del Sistema</h1></div>
+      <div class="col-2">
+        <a
+          matTooltip="BOTON PARA OBTENER AYUDA SOBRE LA PANTALLA DE METRICAS"
+          [matTooltipPosition]="'before'"
+          class="boton nav-link"
+          routerLink="help-notes"
+          data-bs-toggle="modal"
+          data-bs-target="#AyudaModal"
+        >
+          Ayuda<img
+            src="../../../../assets/notes/Ayuda.png"
+            alt="Logo"
+            class="imagen_boton"
+        /></a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-5 ContenedorGrafica">
+        <h2 class="text-center">Tareas</h2>
+        <div *ngIf="this.alltasks.length === 0" class="Vacio">
+          <h3>
+            ¡¡¡ No hay ninguna Tarea,
+            <br />crea una en alguna Vista de tareas !!!
+          </h3>
+        </div>
+        <div class="Grafica">
+          <canvas id="chartTareas">{{ chartTareas }}</canvas>
+        </div>
+      </div>
+      <div class="col-2 ContenedorInfo">
+        <h4 class="text-center">Tareas</h4>
+        <p>Tareas Totales: {{ TareasTotales }}</p>
+        <p>Tareas Completadas: {{ TareasCompletadas }}</p>
+        <p>Tareas Sin Completar: {{ TareasSinCompletar }}</p>
+
+        <h4 class="text-center">Pomodoro</h4>
+        <p>Sesiones Totales: {{ SesionesTotales }}</p>
+        <p>Sesiones Sin Iniciar: {{ SesionesSinIniciar }}</p>
+        <p>Sesiones Pausadas: {{ SesionesPausadas }}</p>
+        <p>Sesiones Terminadas: {{ SesionesTerminadas }}</p>
+        <p>Sesiones Abandonadas: {{ SesionesAbandonadas }}</p>
+      </div>
+      <div class="col-5 ContenedorGrafica">
+        <h2 class="text-center">Pomodoro</h2>
+        <div *ngIf="this.allSessions.length == 0" class="Vacio">
+          <h3>
+            ¡¡¡ No hay ninguna Sesion,
+            <br />crea una en alguna Vista de tareas !!!
+          </h3>
+        </div>
+        <div class="Grafica">
+          <canvas id="chartPomodoros">{{ chartPomodoros }}</canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal  Ayuda-->
+<div
+  class="modal fade"
+  id="AyudaModal"
+  tabindex="-1"
+  aria-labelledby="AyudaModalLabel"
+  aria-hidden="true"
+  data-bs-backdrop="static"
+  #confirmationModal
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="AyudaModalLabel">Ayuda</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="CancelarModal()"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <carousel [interval]="0" [isAnimated]="true">
+          <slide>
+            <img
+              src="../../../assets/AyudaImagenes/Metricas/1.png"
+              alt="Second slide"
+              style="display: block; width: 100%"
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Metricas Vacias, Sin ningun dato</h5>
+            </div>
+          </slide>
+          <slide>
+            <img
+              src="../../../assets/AyudaImagenes/Metricas/2.png"
+              alt="Second slide"
+              style="display: block; width: 100%"
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <h5>
+                Aqui se pueden observar Datos de Tareas y Sesiones Pomodoro
+              </h5>
+            </div>
+          </slide>
+
+          <!-- <slide
+            *ngFor="let imagen of imagenesAyuda; let index = index"
+            class="slide"
+          >
+            <img
+              [src]="imagen.image"
+              alt="image slide"
+              class="imagen-carrusel"
+            />
+          </slide> -->
+        </carousel>
+      </div>
+      <!-- <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          (click)="CancelarModal()"
+        >
+          Regresar
+        </button>
+      </div> -->
+    </div>
+  </div>
+</div>

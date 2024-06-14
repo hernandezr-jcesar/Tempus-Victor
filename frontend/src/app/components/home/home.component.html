@@ -1,0 +1,91 @@
+<div class="centrar-pantalla">
+  <div class="div-centrado">
+    @if (!isLoggedIn) {
+    <h1>Bienvenido a TEMPUS VICTOR !!!</h1>
+    <section class="introduccion">
+      <p>
+        Enfrenta tus desafíos diarios con eficacia y tranquilidad. En la
+        actualidad, todos enfrentamos desafíos en nuestra vida personal y
+        profesional que pueden ser abrumadores. ¿Estás buscando una forma de
+        organizarte mejor y manejar tus tareas de manera eficaz? ¡Has llegado al
+        lugar correcto!
+      </p>
+      <h2>¿Por qué necesitas nuestro sistema de organización personal?</h2>
+      <ul>
+        <li>
+          <i class="fas fa-exclamation-triangle"></i>
+          Estrés y Ansiedad: Cuando te sientes presionado por el tiempo y las
+          obligaciones.
+        </li>
+        <li>
+          <i class="fas fa-chart-line"></i>
+          Disminución de Productividad: Perdiendo tiempo en tareas innecesarias.
+        </li>
+        <li>
+          <i class="fas fa-question-circle"></i>
+          Toma de Decisiones Inadecuada: La falta de información adecuada para
+          tomar decisiones importantes.
+        </li>
+      </ul>
+      <p>
+        TEMPUS VICTOR es la respuesta a tus problemas de organización. Nuestro
+        sistema ha sido diseñado pensando en ti, con las siguientes
+        características clave:
+      </p>
+      <ul>
+        <li>
+          <i class="fas fa-check-circle"></i>
+          Fácil de Usar: Adopta rápidamente nuestro sistema gracias a su
+          interfaz sencilla e intuitiva.
+        </li>
+        <li>
+          <i class="fas fa-cog"></i>
+          Personalizable: Ajusta el sistema según tus necesidades específicas
+          para una experiencia única.
+        </li>
+        <li>
+          <i class="fas fa-expand-arrows-alt"></i>
+          Adaptable: Evoluciona con tus necesidades cambiantes para mantenerte
+          organizado en todo momento.
+        </li>
+      </ul>
+    </section>
+    <section class="caracteristicas">
+      <h2>Características Principales</h2>
+      <ul>
+        <li>
+          <i class="fas fa-sticky-note"></i>
+          Hacer Notas: Toma notas rápidas y accede a ellas en cualquier momento
+          y en cualquier lugar. Nunca olvides una idea brillante de nuevo.
+        </li>
+        <li>
+          <i class="fas fa-tasks"></i>
+          Gestionar Tareas: Crea tareas, establece prioridades y plazos. Recibe
+          recordatorios para asegurarte de que nunca se te pase por alto algo
+          importante.
+        </li>
+      </ul>
+    </section>
+    <section class="llamada-a-la-accion">
+      <h2>
+        No esperes más para tomar el control de tu vida. Regístrate ahora y
+        descubre cómo TEMPUS VICTOR puede ayudarte a manejar tu tiempo y tareas
+        de manera efectiva.
+      </h2>
+      <div class="boton-centrado">
+        <a
+          href="/register"
+          class="text-white nav-link comenzar-ahora"
+          routerLink="/register"
+          >¡Comienza Ahora!</a
+        >
+      </div>
+    </section>
+    } @if (isLoggedIn) {
+    <p>
+      Aqui va el contenido de home cuando el usuario esta activo dentro de su
+      sesion.
+    </p>
+    }
+  </div>
+</div>

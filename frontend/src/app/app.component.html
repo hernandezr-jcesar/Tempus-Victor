@@ -1,0 +1,159 @@
+<!-- <div class="container-fluid px-0"> -->
+<nav class="navbar fixed-top navegacion px-0">
+  <div class="row justify-content-center align-items-center">
+    <!-- Logo -->
+    <div class="col-4 d-flex justify-content-start">
+      <a href="/tasks/eisenhower" class="boton-home navbar-brand nav-link">
+        <img
+          src="../assets/img/tiempo.png"
+          alt="Logo"
+          width="50"
+          height="50"
+          class="icono"
+        />
+        Tempus Victor
+      </a>
+    </div>
+    <!-- Hora y Fecha -->
+    <div class="col-4 d-flex justify-content-center">
+      <li class="nav-item text-center centrar-fecha-hora px-0">
+        <a class="fecha nav-link active">{{ formattedDate$ | async }}</a>
+        <a class="hora nav-link active">{{ formattedTime$ | async }}</a>
+      </li>
+    </div>
+    <!-- SideBar -->
+    <div class="col-4 d-flex justify-content-end">
+      <!-- Toggle Btn-->
+      <button
+        class="navbar-toggler border-0 navbar-light"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasNavbar"
+        aria-controls="offcanvasNavbar"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- SideBar -->
+      <div
+        class="sidebar offcanvas offcanvas-start"
+        tabindex="-1"
+        id="offcanvasNavbar"
+        aria-labelledby="offcanvasNavbarLabel"
+      >
+        <!-- Sidebar Header -->
+        <div class="offcanvas-header text-white border-bottom">
+          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+            Tempus Victor
+          </h5>
+          <!-- X to close offcanvas -->
+          <button
+            type="button"
+            class="btn-close btn-close-white shadow-none"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+          ></button>
+        </div>
+
+        <!-- Sidebar Body -->
+        <div class="offcanvas-body d-flex flex-column p-4 p-lg-0">
+          <!-- Login / Sign Up-->
+          <div
+            class="d-flex flex-column justify-content-start align-items-center gap-5"
+          >
+            @if (!isLoggedIn) {
+            <a href="/register" class="boton nav-link" routerLink="register"
+              ><img
+                src="../assets/img/SignUp.png"
+                alt="Logo"
+                width="50"
+                height="50"
+                class="d-inline-block align-text-center icono"
+              />Registrarse</a
+            >
+            <a href="/login" class="boton nav-link" routerLink="login"
+              ><img
+                src="../assets/img/LogIn.png"
+                alt="Logo"
+                width="50"
+                height="50"
+                class="d-inline-block align-text-center icono"
+              />Iniciar Sesión</a
+            >
+
+            }
+          </div>
+          <ul
+            class="navbar-nav justify-content-center align-items-center gap-5 fs-5"
+            routerLinkActive="active"
+          >
+            @if (isLoggedIn) {
+            <li class="nav-item">
+              <a href="/notes" class="boton nav-link" routerLink="notes"
+                ><img
+                  src="../assets/navbar/Notas.png"
+                  alt="Logo"
+                  width="50"
+                  height="50"
+                  class="d-inline-block align-text-center mr-3 icono"
+                />Notas</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="boton nav-link" routerLink="tasks/eisenhower"
+                ><img
+                  src="../assets/navbar/Tareas.png"
+                  alt="Logo"
+                  width="50"
+                  height="50"
+                  class="d-inline-block align-text-center mr-3 icono"
+                />Tareas</a
+              >
+            </li>
+
+            <li class="nav-item">
+              <a class="boton nav-link" routerLink="metrics"
+                ><img
+                  src="../assets/navbar/Metricas.png"
+                  alt="Logo"
+                  width="50"
+                  height="50"
+                  class="d-inline-block align-text-center mr-3 icono"
+                />Metricas</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="boton nav-link" routerLink="config"
+                ><img
+                  src="../assets/navbar/Configuracion.png"
+                  alt="Logo"
+                  width="50"
+                  height="50"
+                  class="d-inline-block align-text-center mr-3 icono"
+                />Configuración</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="boton nav-link" routerLink="profile"
+                ><img
+                  src="../assets/navbar/Profile.png"
+                  alt="Logo"
+                  width="50"
+                  height="50"
+                  class="d-inline-block align-text-center mr-3 icono"
+                />Cuenta</a
+              >
+            </li>
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="main-content container-fluid">
+  <router-outlet></router-outlet>
+</div>
+<!-- </div> -->

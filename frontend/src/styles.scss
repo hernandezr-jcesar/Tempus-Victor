@@ -1,0 +1,66 @@
+/* You can add global styles to this file, and also import other style files */
+* {
+  font-family: "Quantico", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+body {
+  //background-image: url("./assets/img/Fondo_pizarra_2.jpg");
+  // background-color: rgb(102, 102, 102);
+  // background-blend-mode: multiply;
+  // background-position: center;
+  // background-size: cover;
+  // background-repeat: no-repeat;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.sidebar {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  backdrop-filter: blur(10px);
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  /* Estilos específicos para pantallas de escritorio medianas */
+  body {
+    font-size: 16px;
+  }
+  .container {
+    max-width: 992px;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  /* Estilos específicos para tablets en orientación horizontal */
+  body {
+    font-size: 14px;
+  }
+  .container {
+    max-width: 768px;
+  }
+}
+@media (min-width: 576px) and (max-width: 767px) {
+  /* Estilos específicos para tablets en orientación vertical */
+  body {
+    font-size: 12px;
+  }
+  .container {
+    max-width: 576px;
+  }
+}
+@media (max-width: 575px) {
+  /* Estilos específicos para teléfonos móviles */
+  body {
+    font-size: 10px;
+  }
+  .container {
+    max-width: 360px;
+  }
+}
+
+/* styles.css */
+
+@import "../node_modules/ngx-toastr/toastr.css";
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+@import "../node_modules/angular-calendar/css/angular-calendar.css";

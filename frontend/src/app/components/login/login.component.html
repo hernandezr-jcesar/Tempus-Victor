@@ -1,0 +1,83 @@
+<div class="centrar-pantalla">
+  <div class="formulario-container">
+    <h2 class="text-center">Iniciar Sesión</h2>
+
+    @if (!isLoggedIn) {
+    <form
+      name="form"
+      (ngSubmit)="f.form.valid && onSubmit()"
+      #f="ngForm"
+      novalidate
+    >
+      <div class="form-group">
+        <label for="email">Correo Electronico</label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Ingresa tu Correo Electronico..."
+          name="email"
+          [(ngModel)]="form.email"
+          required
+          #email="ngModel"
+          [ngClass]="{ 'is-invalid': f.submitted && email.errors }"
+        />
+        @if (email.errors && f.submitted) {
+        <div class="invalid-feedback">
+          Por favor ingresa un correo electronico
+        </div>
+        }
+      </div>
+      <div class="form-group">
+        <label for="password">Contraseña</label>
+        <p-password
+          type="password"
+          name="password"
+          styleClass="p-component p-fluid"
+          [style]="{ width: '100%' }"
+          placeholder="Ingresa tu contraseña..."
+          [(ngModel)]="form.password"
+          [toggleMask]="true"
+          [feedback]="false"
+          required
+          minlength="6"
+          #password="ngModel"
+          [ngClass]="{
+            'is-invalid': f.submitted && password.errors,
+            'ng-invalid ng-dirty ': f.submitted && password.errors
+          }"
+        />
+        <!-- <input
+          type="password"
+          class="form-control"
+          name="password"
+          [(ngModel)]="form.password"
+          required
+          minlength="6"
+          #password="ngModel"
+          [ngClass]="{ 'is-invalid': f.submitted && password.errors }"
+        /> -->
+        @if (password.errors && f.submitted) {
+        <div class="invalid-feedback">
+          @if (password.errors['required']) {
+          <div>Por favor ingresa una contraseña</div>
+          } @if (password.errors['minlength']) {
+          <div>La contraseña debe contener al menos 6 caracteres</div>
+          }
+        </div>
+        }
+      </div>
+      <div class="form-group">
+        <button class="btn btn-block btn-login">Acceder</button>
+      </div>
+      <div class="form-group">
+        @if (f.submitted && isLoginFailed) {
+        <div class="alert alert-danger" role="alert">
+          {{ errorMessage }}
+        </div>
+        }
+      </div>
+    </form>
+
+    }
+  </div>
+</div>

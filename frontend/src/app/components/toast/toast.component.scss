@@ -1,0 +1,12 @@
+.toast {
+  position: fixed; /* Ensures the toast stays in place */
+  top: 20px; /* Adjust top position as needed */
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%); /* Center horizontally */
+  background-color: #1bf607; /* Background color */
+  padding: 10px 20px; /* Padding */
+  border: 1px solid #8000ff; /* Border */
+  border-radius: 4px; /* Rounded corners */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Light shadow */
+  z-index: 9999; /* Higher z-index to ensure it appears on top */
+}

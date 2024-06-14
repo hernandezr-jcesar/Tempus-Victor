@@ -1,0 +1,158 @@
+.centrar-pantalla {
+  height: 90vh;
+  padding: 2vh;
+}
+
+.div-centrado {
+  height: 100%;
+  border-radius: 30px;
+  padding: 5vh;
+  background-color: #ffffff;
+  border: 10px solid rgb(105, 105, 105);
+}
+
+.container {
+  min-height: 100%;
+  min-width: 100%;
+  // border: 1px solid rgb(255, 0, 0);
+}
+
+.form-group {
+  margin-bottom: 15px;
+  // border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+}
+
+.form-control {
+  width: 100%;
+}
+
+.btn {
+  margin-top: 15px;
+}
+.tiempos {
+  width: 15vh;
+  // border: 1px solid black;
+}
+
+.imagen-carrusel {
+  width: 50vh; /* Ensures images fill the container's width */
+  height: 25vh; /* Set your desired fixed height */
+  object-fit: cover; /* Maintain aspect ratio and cover the container */
+}
+.centrarBoton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // border: 1px solid black;
+}
+.btn:hover {
+  background-color: rgb(99, 99, 99);
+  border-color: black;
+  // border: 1px solid black;
+}
+.Botones-Modal {
+  gap: 200px;
+}
+
+///
+.config-container {
+  width: 300px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.config-section {
+  margin-bottom: 15px;
+  // border: 1px solid black;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+select {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+///
+.example-h2 {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.example-section {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  align-items: center;
+}
+
+.example-margin {
+  margin: 8px;
+}
+
+.mat-mdc-slider {
+  max-width: 300px;
+  width: 100%;
+}
+///
+.contenido-slider {
+  // border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/////
+.imagen_boton {
+  width: 7vh;
+  height: 7vh;
+}
+.boton_regresar {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+  width: 25vh;
+  border-radius: 50px;
+}
+.boton_regresar:hover {
+  background-color: rgba(200, 200, 200);
+  cursor: pointer;
+}
+
+.modal-dialog-ayuda {
+  max-width: 85%; /* Set modal width to 90% */
+  margin: 0 auto; /* Center the modal horizontally */
+}
+
+.imagen_boton {
+  width: 5vh;
+  height: 5vh;
+}
+
+.boton {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  width: 25vh;
+  border-radius: 25px;
+}
+.boton:hover {
+  background-color: rgb(150, 150, 150);
+  cursor: pointer;
+}

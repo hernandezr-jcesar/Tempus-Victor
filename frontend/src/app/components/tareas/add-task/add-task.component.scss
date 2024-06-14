@@ -1,0 +1,193 @@
+.centrar-pantalla {
+  // height: 100%;
+  height: 90vh;
+  padding: 2vh;
+}
+
+.div-centrado {
+  height: 100%;
+  border-radius: 30px;
+  padding: 3vh;
+  background-color: #ffffff;
+  border: 10px solid rgb(105, 105, 105);
+}
+
+.centrar-row {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  height: 100%;
+}
+
+.titulo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-opcionales {
+  // border: 1px solid rgb(102, 0, 255);
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding-left: 10vh;
+}
+
+.date-time-container {
+  display: flex; /* Make dates side-by-side */
+  align-items: center; /* Align dates vertically */
+  padding-top: 3vh;
+  gap: 30px;
+  // border: 2px solid black;
+}
+
+.categoria-container {
+  display: flex; /* Make dates side-by-side */
+  flex-direction: row; /* Stack elements vertically */
+  align-items: center; /* Align dates vertically */
+  justify-content: center;
+  width: 100%;
+  padding-top: 3vh;
+  gap: 30px;
+  // border: 2px solid black;
+}
+
+.SelectCategory {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 15px;
+  // border: 1px solid black;
+}
+.Espacio {
+  // border: 1px solid black;
+  display: flex;
+  gap: 30px;
+}
+.SELECT {
+  border: 1px solid rgb(180, 180, 180);
+  border-radius: 10px;
+  text-align: center;
+}
+
+.pequeñosBotones {
+  // background-color: #ff0000;
+  // border: 2px solid black;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 10vh;
+  border-radius: 25px;
+}
+.pequeñosBotones:hover {
+  background-color: #909090;
+}
+.Botones-formulario {
+  width: 6vh;
+  height: 6vh;
+}
+
+.izquierda {
+  display: flex;
+  justify-content: start;
+}
+
+.boton-cancelar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 15vh;
+  border-radius: 25px;
+}
+.boton-cancelar:hover {
+  background-color: rgb(255, 0, 0, 0.75);
+  cursor: pointer;
+}
+
+.imagen_boton {
+  width: 8vh;
+  height: 8vh;
+}
+
+.importancia_urgencia {
+  width: 100%;
+  padding: 8px;
+}
+
+.no,
+.si {
+  font-weight: bold;
+}
+
+.no {
+  margin-right: 10px;
+}
+
+.si {
+  margin-left: 10px;
+}
+.derecha {
+  display: flex;
+  justify-content: end;
+}
+
+.boton-aceptar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 15vh;
+  border-radius: 25px;
+}
+.boton-aceptar:hover {
+  background-color: rgb(24, 169, 1, 0.25);
+  cursor: pointer;
+}
+
+.MensajeError {
+  background-color: #ff0000c2;
+  color: #000000;
+}
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.Imagen-categoria {
+  width: 4vh;
+  height: 4vh;
+}
+
+.btn {
+  margin-right: 10px; /* Add 10px space between dates */
+  margin-left: 10px; /* Add 10px space between dates */
+}
+
+.importancia {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  // border: 1px solid rgb(0, 5, 3);
+}
+.urgencia {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  // border: 1px solid rgb(0, 5, 3);
+}
+
+.switch-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid rgb(201, 201, 201);
+  border-radius: 10px;
+  padding: 5px;
+}

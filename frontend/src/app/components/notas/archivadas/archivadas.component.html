@@ -1,0 +1,157 @@
+<div class="row align-items-center">
+  <div class="col-3 izquierda">
+    <a
+      matTooltip="BOTON PARA REGRESAR A LISTA DE NOTAS"
+      [matTooltipPosition]="'before'"
+      class="boton_regresar nav-link"
+      (click)="Regresar()"
+    >
+      <img
+        src="../../../assets/tasks/Regresar.png"
+        alt="Logo"
+        class="imagen_boton"
+      />
+      Regresar
+    </a>
+  </div>
+
+  <!-- BUSCADOR -->
+  <div class="col-6 d-flex justify-content-center">
+    <div class="buscador">
+      <div class="input-group">
+        <div class="form-outline" data-mdb-input-init>
+          <label for="categoria">Filtrar Por Palabra</label>
+          <input
+            matTooltip="AQUI PUEDES FILTRAR POR PALABRAS ALGUNA NOTA"
+            [matTooltipPosition]="'before'"
+            type="search"
+            id="search-note"
+            class="form-control input-search"
+            placeholder="Buscar Nota"
+            aria-label="Search"
+            (input)="onSearchChange($event)"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-3 d-flex justify-content-start titulo">
+    <h2>NOTAS ARCHIVADAS</h2>
+  </div>
+</div>
+
+<div class="row justify-content-center">
+  <div class="col-1"></div>
+  <!-- NOTAS -->
+  <div class="col-10 notes-container">
+    <p *ngIf="filteredNotes.length == 0" class="notas_vacio">
+      No hay ninguna Nota, agrega una con el boton:
+      <img src="../../../../assets/notes/Agregar.png" class="imagen_boton" />
+    </p>
+    <ul class="list-group list-group-flush">
+      <li
+        class="list-group-item note-item"
+        *ngFor="let note of filteredNotes"
+        (click)="onNoteClick(note)"
+        [ngClass]="{ selected: note === selectedNote }"
+      >
+        <div class="note-header">
+          <h3>{{ note.title }}</h3>
+          <p>{{ note.description }}</p>
+          <div class="note-date-container">
+            <p class="note-date">
+              Fecha de Creación: {{ note.createdAt | date : "mediumDate" }}
+              {{ note.createdAt | date : "shortTime" }}
+            </p>
+            <p>|</p>
+            <p class="note-date">
+              Ultima Modificación:
+              {{ note.updatedAt | date : "mediumDate" }}
+              {{ note.updatedAt | date : "shortTime" }}
+            </p>
+          </div>
+        </div>
+
+        <div *ngIf="selectedNote" class="selected-note-indicator"></div>
+      </li>
+    </ul>
+  </div>
+  <!-- BOTONES -->
+  <div class="col-1">
+    <div class="row align-items-center">
+      <div class="col-12 d-flex justify-content-center" *ngIf="showButtons">
+        <button
+          matTooltip="BOTON PARA SACAR A LA NOTA SELECCIONADA DEL ARCHIVO"
+          [matTooltipPosition]="'before'"
+          class="reset-button"
+          data-bs-toggle="modal"
+          data-bs-target="#ArchivarNotaModal"
+          class="boton nav-link"
+        >
+          <img
+            src="../../../../assets/notes/Archivar_Nota.png"
+            alt="Logo"
+            class="imagen_boton"
+          />
+          Desarchivar Nota
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Para Archivar Nota-->
+<div
+  class="modal fade"
+  id="ArchivarNotaModal"
+  tabindex="-1"
+  aria-labelledby="ArchivarNotaModalLabel"
+  aria-hidden="true"
+  data-bs-backdrop="static"
+  #confirmationModal
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="ArchivarNotaModalLabel">
+          Desarchivar Nota
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="CancelarModal()"
+        ></button>
+      </div>
+      <div class="modal-body">
+        ¿Deseas sacar del Archivo a la Nota seleccionada?
+      </div>
+      <div class="text-center">
+        <img
+          src="../../../../assets/BERT/Bert_Preguntar.gif"
+          style="width: 40vh"
+        />
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          (click)="CancelarModal()"
+        >
+          Cancelar
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+          (click)="onArchivarNota()"
+        >
+          Desarchivar Nota
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

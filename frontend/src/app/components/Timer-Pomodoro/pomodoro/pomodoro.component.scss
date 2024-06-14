@@ -1,0 +1,332 @@
+.CONTENEDOR {
+  height: 81vh;
+  padding-left: 2vh;
+  padding-right: 2vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.Contiene-todo {
+  height: 100%;
+  width: 100%;
+}
+.titulo {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.Informacion_Tarea {
+  height: 69vh;
+  display: flex;
+  flex-direction: column;
+}
+.imagen_boton {
+  width: 8vh;
+  height: 8vh;
+}
+.imagen_boton_sonido {
+  width: 6vh;
+  height: 6vh;
+}
+
+.boton-cancelar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 20vh;
+  border-radius: 25px;
+}
+.boton-cancelar:hover {
+  background-color: rgb(255, 0, 0, 0.75);
+  cursor: pointer;
+}
+.boton-habilitar-sonido {
+  border: none;
+  padding: 10px;
+  border-radius: 100%;
+}
+.boton-habilitar-sonido:hover {
+  background-color: rgba(24, 212, 206, 0.25);
+  border: none;
+  padding: 10px;
+  border: 2px solid rgb(100, 100, 100);
+  border-radius: 100%;
+}
+.izquierda {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  height: 50vh;
+}
+.tiempo-total {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 5vh;
+  width: 25vh;
+  border: 5px solid rgb(120, 120, 120);
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: large;
+  color: rgb(120, 120, 120);
+}
+.centrar-Tiempos {
+  height: 69vh;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.contador_tiempo {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.pomodoro-counter {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+}
+.pomodoro-timer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 3px solid black;
+  border-radius: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+  height: 69vh;
+}
+
+.time-indicators {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: x-large;
+}
+.pomodoro-indicator,
+.break-indicator {
+  font-weight: bold;
+}
+.Imagen_Fondo {
+  width: 80vh;
+  height: 40vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.button-group {
+  height: 23%;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-direction: row;
+  gap: 100px;
+  padding: 10px;
+}
+.sonido,
+.reiniciar-sesion,
+.empezar-sesion,
+.pausar-sesion,
+.terminar-sesion {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  text-align: center;
+  font-weight: bolder;
+  padding: 5px;
+}
+.reset-button {
+  border: none;
+  padding: 5px;
+  border-radius: 100%;
+}
+.reset-button:hover {
+  background-color: rgba(108, 41, 202, 0.5);
+  border: none;
+  padding: 5px;
+  border-radius: 100%;
+}
+.play-button {
+  border: none;
+  padding: 0px;
+  border-radius: 100%;
+}
+.play-button:disabled:hover {
+  background-color: rgb(255, 255, 255);
+  border: none;
+  padding: 0px;
+  border-radius: 100%;
+}
+.play-button:hover {
+  background-color: rgba(46, 190, 72, 0.5);
+  border: none;
+  padding: 3px;
+  border-radius: 100%;
+}
+.play-button:disabled img.imagen_boton {
+  filter: grayscale(50%);
+  opacity: 0.3;
+}
+.pause-button {
+  border: none;
+  padding: 0px;
+  border-radius: 100%;
+}
+.pause-button:disabled:hover {
+  background-color: rgb(255, 255, 255);
+  border: none;
+  padding: 0px;
+  border-radius: 100%;
+}
+.pause-button:hover {
+  background-color: rgba(255, 217, 0, 0.5);
+  border: none;
+  padding: 5px;
+  border-radius: 100%;
+}
+.pause-button:disabled img.imagen_boton {
+  filter: grayscale(50%);
+  opacity: 0.3;
+}
+.end-button {
+  border: none;
+  padding: 0px;
+  border-radius: 100%;
+}
+.end-button:disabled:hover {
+  background-color: rgb(255, 255, 255);
+  border: none;
+  padding: 0px;
+  border-radius: 100%;
+}
+.end-button:hover {
+  background-color: rgba(255, 0, 0, 0.581);
+  border: none;
+  padding: 5px;
+  border-radius: 100%;
+}
+.end-button:disabled img.imagen_boton {
+  filter: grayscale(50%);
+  opacity: 0.3;
+}
+.contenedor-barra {
+  padding: 0;
+}
+.barras-progreso {
+  display: flex;
+  align-items: center;
+  justify-self: center;
+  width: 100%;
+  height: 5vh;
+}
+.barra-progre {
+  border: 1px solid rgb(150, 150, 150);
+  height: 3vh;
+  width: 100%;
+}
+
+.Texto-barra-tiempo {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+  height: 5vh;
+}
+.textoos1 {
+  height: 5vh;
+  border-left: 4px solid black;
+  border-right: 2px solid black;
+}
+.textoos2 {
+  height: 5vh;
+  border-left: 2px solid black;
+  border-right: 4px solid black;
+}
+.horizontal-line {
+  width: 100%;
+  height: 4px;
+  background-color: #000000;
+  margin: 15px 0;
+  text-align: center;
+}
+.tiempo-texto {
+  width: 16vh;
+  font-weight: bolder;
+  font-size: x-large;
+}
+.pomodoro-actual {
+  background-color: rgb(200, 200, 200);
+  border: 3px solid black;
+  padding: 5px;
+  border-radius: 10px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+.pomodoros-completos {
+  padding: 5px;
+}
+.Botones_sesion_abandonada {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 200px;
+}
+.Botones_sesion_terminada {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+}
+.modal-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pomodoro-estimate {
+  display: flex;
+  flex-wrap: wrap;
+}
+.pomodoro-img-estimate {
+  display: flex;
+  padding: 3px;
+}
+.POMODOROS {
+  width: 100%;
+}
+.Alerta-termino {
+  display: flex;
+  flex-direction: column;
+}
+.modal-dialog-ayuda {
+  max-width: 85%;
+  margin: 0 auto;
+}
+.imagen-carrusel {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+.imagen_boton_ayuda {
+  width: 5vh;
+  height: 5vh;
+}
+.boton {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  width: 25vh;
+  border-radius: 25px;
+}
+.boton:hover {
+  background-color: rgb(150, 150, 150);
+  cursor: pointer;
+}

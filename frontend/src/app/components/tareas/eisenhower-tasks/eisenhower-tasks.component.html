@@ -1,0 +1,715 @@
+<div class="row align-items-center">
+  <div class="col-3 d-flex justify-content-start">
+    <h2>TAREAS EISENHOWER</h2>
+  </div>
+  <!-- FILTRADOR -->
+  <div class="col-6 d-flex justify-content-center gap-5">
+    <div class="buscador">
+      <div class="input-group">
+        <div class="form-outline" data-mdb-input-init>
+          <label for="categoria">Filtrar Por Palabra</label>
+          <input
+            matTooltip="AQUI PUEDES FILTRAR A LAS TAREAS POR PALABRAS"
+            [matTooltipPosition]="'before'"
+            type="search"
+            id="search-note"
+            class="form-control input-search"
+            placeholder="Buscar Tarea"
+            aria-label="Search"
+            (input)="onSearchChange($event)"
+          />
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="categoria-container">
+        <div class="SelectCategory">
+          <label for="categoria">Filtrar Por Categoria</label>
+
+          <div>
+            <select
+              matTooltip="AQUI PUEDES FILTRAR A LAS TAREAS POR CATEGORIA"
+              [matTooltipPosition]="'after'"
+              id="categoria"
+              class="SELECT"
+              (change)="onCategoriaChange($event)"
+            >
+              <option>Todas Las Tareas</option>
+              <option
+                *ngFor="let categoria of UserCategorias"
+                value="{{ categoria.idCategory }}"
+              >
+                {{ categoria.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- BOTON IR A CALENDARIO -->
+  <div class="col-3 d-flex justify-content-end">
+    <a
+      matTooltip="BOTON PARA IR A LA VISTA DE CALENDARIO DE TAREAS"
+      [matTooltipPosition]="'before'"
+      class="Boton-Calendario nav-link"
+      (click)="onCalendarioClick()"
+      >Ir a Calendario&nbsp;&nbsp;<img
+        src="../../../../assets/tasks/VistaCalendario.png"
+        alt="Logo"
+        class="imagen_calendario"
+    /></a>
+  </div>
+</div>
+
+<!-- FLECHAS IMPORTANCIA URGENCIA -->
+<div class="row">
+  <div class="col-12 URGENCIA">
+    <span class="texto">URGENTE</span>&nbsp;&nbsp;
+    <img src="../../../../assets/tasks/Arrow.png" alt="Flecha de urgencia" />
+    <span class="texto">NO_URGENTE</span>
+  </div>
+  <div class="col-1 IMPORTANCIA">
+    <div class="texto-vertical texto">
+      <span class="texto">NO_IMPORTANTE</span>&nbsp;&nbsp;
+      <img
+        src="../../../../assets/tasks/Arrow vertical.png"
+        alt="Flecha de importancia"
+      />
+      <span class="texto">IMPORTANTE</span>
+    </div>
+  </div>
+  <!-- TAREAS -->
+  <div class="col-10">
+    <div cdkDropListGroup>
+      <div class="row">
+        <div class="col-6 cuadrante">
+          <h3 class="categoria">Hacer</h3>
+
+          <div class="TamanioCuadrante overflow-y-auto">
+            <div
+              cdkDropList
+              [cdkDropListData]="filterhacer"
+              class="example-list"
+              (cdkDropListDropped)="drop($event)"
+              id="hacer-list"
+            >
+              <p
+                *ngIf="filterhacer.length == 0"
+                class="tareas_vacio text-center"
+              >
+                No hay ninguna tarea, agrega una con el boton:
+                <img
+                  src="../../../../assets/notes/Agregar.png"
+                  class="imagen_boton"
+                />
+              </p>
+              <ul class="list-group list-group-flush">
+                <li
+                  class="list-group-item note-item"
+                  *ngFor="let task of filterhacer"
+                  (click)="onTaskClick(task)"
+                  [ngClass]="{ selected: task === selectedTask }"
+                  cdkDrag
+                >
+                  <div class="form-check">
+                    <input
+                      matTooltip="AQUI PUEDES COMPLETAR LA TAREA SELECCIONADA"
+                      [matTooltipPosition]="'below'"
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      data-bs-toggle="modal"
+                      data-bs-target="#exampleModal"
+                      id="task-checkbox-{{ task.idTask }}"
+                      [(ngModel)]="task.status"
+                    />
+                  </div>
+                  <div class="row tarea_objeto">
+                    <div class="col-4 tarea_inicio">
+                      <p>{{ task.title }}</p>
+                    </div>
+                    <div class="col-4 tarea_inicio">
+                      <div
+                        *ngIf="task.pomodoroEstimacion != null"
+                        class="pomodoro-counter"
+                      >
+                        <div
+                          class="pomodoro-image"
+                          *ngFor="let _ of range(task.pomodoroEstimacion)"
+                        >
+                          <img
+                            src="../../../../assets/pomodoro/Pomodoro.png"
+                            class="imagen_Pomodoro"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-4" *ngIf="task.deadline != null">
+                      <p>
+                        {{ task.deadline | date : "shortDate" }}
+                        &nbsp;
+                        {{ task.deadline | date : "shortTime" }}
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    *ngIf="selectedTask"
+                    class="selected-note-indicator"
+                  ></div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 cuadrante">
+          <h3 class="categoria">Planear</h3>
+          <div class="TamanioCuadrante overflow-y-auto">
+            <div
+              cdkDropList
+              [cdkDropListData]="filterplanear"
+              class="example-list"
+              (cdkDropListDropped)="drop($event)"
+              id="planear-list"
+            >
+              <p
+                *ngIf="filterplanear.length == 0"
+                class="tareas_vacio text-center"
+              >
+                No hay ninguna tarea, agrega una con el boton:
+                <img
+                  src="../../../../assets/notes/Agregar.png"
+                  class="imagen_boton"
+                />
+              </p>
+              <ul class="list-group list-group-flush">
+                <li
+                  class="list-group-item note-item"
+                  *ngFor="let task of filterplanear"
+                  (click)="onTaskClick(task)"
+                  [ngClass]="{ selected: task === selectedTask }"
+                  cdkDrag
+                >
+                  <div class="form-check">
+                    <input
+                      matTooltip="AQUI PUEDES COMPLETAR LA TAREA SELECCIONADA"
+                      [matTooltipPosition]="'below'"
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      data-bs-toggle="modal"
+                      data-bs-target="#exampleModal"
+                      id="task-checkbox-{{ task.idTask }}"
+                      [(ngModel)]="task.status"
+                    />
+                  </div>
+                  <div class="row tarea_objeto">
+                    <div class="col-4 tarea_inicio">
+                      <p>{{ task.title }}</p>
+                    </div>
+                    <div class="col-4 tarea_inicio">
+                      <div
+                        *ngIf="task.pomodoroEstimacion != null"
+                        class="pomodoro-counter"
+                      >
+                        <div
+                          class="pomodoro-image"
+                          *ngFor="let _ of range(task.pomodoroEstimacion)"
+                        >
+                          <img
+                            src="../../../../assets/pomodoro/Pomodoro.png"
+                            class="imagen_Pomodoro"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <p>
+                        {{ task.deadline | date : "shortDate" }}
+                        &nbsp;
+                        {{ task.deadline | date : "shortTime" }}
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    *ngIf="selectedTask"
+                    class="selected-note-indicator"
+                  ></div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 cuadrante">
+          <h3 class="categoria">Delegar</h3>
+          <div class="TamanioCuadrante overflow-y-auto">
+            <div
+              cdkDropList
+              [cdkDropListData]="filterdelegar"
+              class="example-list"
+              (cdkDropListDropped)="drop($event)"
+              id="delegar-list"
+            >
+              <p
+                *ngIf="filterdelegar.length == 0"
+                class="tareas_vacio text-center"
+              >
+                No hay ninguna tarea, agrega una con el boton:
+                <img
+                  src="../../../../assets/notes/Agregar.png"
+                  class="imagen_boton"
+                />
+              </p>
+              <ul class="list-group list-group-flush">
+                <li
+                  class="list-group-item note-item"
+                  *ngFor="let task of filterdelegar"
+                  (click)="onTaskClick(task)"
+                  [ngClass]="{ selected: task === selectedTask }"
+                  cdkDrag
+                >
+                  <div class="form-check">
+                    <input
+                      matTooltip="AQUI PUEDES COMPLETAR LA TAREA SELECCIONADA"
+                      [matTooltipPosition]="'below'"
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      data-bs-toggle="modal"
+                      data-bs-target="#exampleModal"
+                      id="task-checkbox-{{ task.idTask }}"
+                      [(ngModel)]="task.status"
+                    />
+                  </div>
+                  <div class="row tarea_objeto">
+                    <div class="col-4 tarea_inicio">
+                      <p>{{ task.title }}</p>
+                    </div>
+                    <div class="col-4 tarea_inicio">
+                      <div
+                        *ngIf="task.pomodoroEstimacion != null"
+                        class="pomodoro-counter"
+                      >
+                        <div
+                          class="pomodoro-image"
+                          *ngFor="let _ of range(task.pomodoroEstimacion)"
+                        >
+                          <img
+                            src="../../../../assets/pomodoro/Pomodoro.png"
+                            class="imagen_Pomodoro"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <p>
+                        {{ task.deadline | date : "shortDate" }}
+                        &nbsp;
+                        {{ task.deadline | date : "shortTime" }}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div
+                    *ngIf="selectedTask"
+                    class="selected-note-indicator"
+                  ></div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 cuadrante">
+          <h3 class="categoria">Eliminar</h3>
+          <div class="TamanioCuadrante overflow-y-auto">
+            <div
+              cdkDropList
+              [cdkDropListData]="filtereliminar"
+              class="example-list"
+              (cdkDropListDropped)="drop($event)"
+              id="eliminar-list"
+            >
+              <p
+                *ngIf="filtereliminar.length == 0"
+                class="tareas_vacio text-center"
+              >
+                No hay ninguna tarea, agrega una con el boton:
+                <img
+                  src="../../../../assets/notes/Agregar.png"
+                  class="imagen_boton"
+                />
+              </p>
+              <ul class="list-group list-group-flush">
+                <li
+                  class="list-group-item note-item"
+                  *ngFor="let task of filtereliminar"
+                  (click)="onTaskClick(task)"
+                  [ngClass]="{ selected: task === selectedTask }"
+                  cdkDrag
+                >
+                  <div class="form-check">
+                    <input
+                      matTooltip="AQUI PUEDES COMPLETAR LA TAREA SELECCIONADA"
+                      [matTooltipPosition]="'below'"
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      data-bs-toggle="modal"
+                      data-bs-target="#exampleModal"
+                      id="task-checkbox-{{ task.idTask }}"
+                      [(ngModel)]="task.status"
+                    />
+                  </div>
+                  <div class="row tarea_objeto">
+                    <div class="col-4 tarea_inicio">
+                      <p>{{ task.title }}</p>
+                    </div>
+                    <div class="col-4 tarea_inicio">
+                      <div
+                        *ngIf="task.pomodoroEstimacion != null"
+                        class="pomodoro-counter"
+                      >
+                        <div
+                          class=""
+                          *ngFor="let _ of range(task.pomodoroEstimacion)"
+                        >
+                          <img
+                            src="../../../../assets/pomodoro/Pomodoro.png"
+                            class="imagen_Pomodoro"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <p>
+                        {{ task.deadline | date : "shortDate" }}
+                        &nbsp;
+                        {{ task.deadline | date : "shortTime" }}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div
+                    *ngIf="selectedTask"
+                    class="selected-class-indicator"
+                  ></div>
+                </li>
+              </ul>
+            </div>
+
+            <!--  -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- BOTONES -->
+  <div class="col-1">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-12 d-flex justify-content-center">
+        <a
+          matTooltip="BOTON PARA OBTENER AYUDA SOBRE LA PANTALLA EISENHOWER DE TAREAS"
+          [matTooltipPosition]="'before'"
+          class="boton nav-link"
+          routerLink="help-notes"
+          data-bs-toggle="modal"
+          data-bs-target="#AyudaModal"
+          ><img
+            src="../../../../assets/notes/Ayuda.png"
+            alt="Logo"
+            class="imagen_boton"
+          />
+          Ayuda</a
+        >
+      </div>
+      <div class="col-12 d-flex justify-content-center text-center">
+        <a
+          matTooltip="BOTON PARA IR A LISTA DE TAREAS COMPLETADAS"
+          [matTooltipPosition]="'before'"
+          class="boton nav-link"
+          (click)="onFinalizadasClick()"
+          ><img
+            src="../../../../assets/tasks/Tareas_Finalizadas.png"
+            alt="Logo"
+            class="imagen_boton"
+          />
+          Tareas Completadas</a
+        >
+      </div>
+      <div class="col-12 d-flex justify-content-center">
+        <a
+          matTooltip="BOTON PARA AGREGAR UNA NUEVA TAREA"
+          [matTooltipPosition]="'before'"
+          class="boton nav-link"
+          (click)="onAddTaskClick()"
+          ><img
+            src="../../../../assets/notes/Agregar.png"
+            alt="Logo"
+            class="imagen_boton"
+          />
+          Agregar</a
+        >
+      </div>
+
+      <div class="col-12 d-flex justify-content-center" *ngIf="showButtons">
+        <a
+          matTooltip="BOTON PARA VER POR COMPLETO LA TAREA SELECCIONADA"
+          [matTooltipPosition]="'before'"
+          class="boton nav-link"
+          (click)="onSeeTaskClick()"
+          ><img
+            src="../../../../assets/notes/Ver.png"
+            alt="Logo"
+            class="imagen_boton"
+          />Ver</a
+        >
+      </div>
+      <div class="col-12 d-flex justify-content-center" *ngIf="showButtons">
+        <a
+          matTooltip="BOTON PARA EDITAR LA TAREA SELECCIONADA"
+          [matTooltipPosition]="'before'"
+          class="boton nav-link"
+          (click)="onEditTaskClick()"
+          ><img
+            src="../../../../assets/notes/Editar.png"
+            alt="Logo"
+            class="imagen_boton"
+          />
+          Editar</a
+        >
+      </div>
+      <div class="col-12 d-flex justify-content-center" *ngIf="showButtons">
+        <a
+          matTooltip="BOTON PARA ELIMINAR LA TAREA SELECCIONADA"
+          [matTooltipPosition]="'before'"
+          class="boton nav-link"
+          (click)="onDeleteTaskClick()"
+          ><img
+            src="../../../../assets/notes/Eliminar.png"
+            alt="Logo"
+            class="imagen_boton"
+          />Eliminar</a
+        >
+      </div>
+      <div class="col-12 d-flex justify-content-center" *ngIf="showButtons">
+        <a
+          matTooltip="BOTON PARA IR AL HISTORIAL DE LA TAREA SELECCIONADA"
+          [matTooltipPosition]="'before'"
+          class="boton nav-link"
+          (click)="Ir_A_Historial()"
+        >
+          <img
+            src="../../../../assets/tasks/Historial.png"
+            alt="Logo"
+            class="imagen_boton"
+          />
+          Historial
+        </a>
+      </div>
+      <div class="col-12 d-flex justify-content-center" *ngIf="showButtons">
+        <a
+          matTooltip="BOTON PARA IR A LA SESION POMODORO DE LA TAREA SELECCIONADA"
+          [matTooltipPosition]="'before'"
+          class="boton nav-link"
+          (click)="onPomodoroClick()"
+          ><img
+            src="../../../../assets/tasks/Pomodoro.png"
+            alt="Logo"
+            class="imagen_boton"
+          />Pomodoro</a
+        >
+      </div>
+    </div>
+  </div>
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+    data-bs-backdrop="static"
+    #confirmationModal
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">
+            Completar Tarea
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            (click)="CancelarModal()"
+          ></button>
+        </div>
+        <div class="text-center">
+          <img
+            src="../../../../assets/BERT/Bert_Pomodoro.gif"
+            style="width: 40vh"
+          />
+        </div>
+        <div class="modal-body">¿Deseas completar la Tarea?</div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+            (click)="CancelarModal()"
+          >
+            Cancelar
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-dismiss="modal"
+            (click)="Finalizar()"
+          >
+            Completar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal  Ayuda-->
+<div
+  class="modal fade"
+  id="AyudaModal"
+  tabindex="-1"
+  aria-labelledby="AyudaModalLabel"
+  aria-hidden="true"
+  data-bs-backdrop="static"
+  #confirmationModal
+>
+  <div class="modal-dialog modal-dialog-centered modal-dialog-AYUDA">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="AyudaModalLabel">Ayuda</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <carousel [interval]="0" [isAnimated]="true">
+          <slide>
+            <img
+              src="../../../assets/AyudaImagenes/EisenhowerTareas/1.png"
+              alt="Second slide"
+              style="display: block; width: 100%"
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Vista Eisenhower Vacia</h5>
+            </div>
+          </slide>
+          <slide>
+            <img
+              src="../../../assets/AyudaImagenes/EisenhowerTareas/2.png"
+              alt="Second slide"
+              style="display: block; width: 100%"
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Vista Eisenhower Con Algunas Tareas</h5>
+            </div>
+          </slide>
+          <slide>
+            <img
+              src="../../../assets/AyudaImagenes/EisenhowerTareas/3.png"
+              alt="Second slide"
+              style="display: block; width: 100%"
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Puedes Filtrar Tareas por Palabras dentro del Titulo</h5>
+            </div>
+          </slide>
+          <slide>
+            <img
+              src="../../../assets/AyudaImagenes/EisenhowerTareas/4.png"
+              alt="Second slide"
+              style="display: block; width: 100%"
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Puedes Filtrar Tareas por Categoria</h5>
+            </div>
+          </slide>
+          <slide>
+            <img
+              src="../../../assets/AyudaImagenes/EisenhowerTareas/5.png"
+              alt="Second slide"
+              style="display: block; width: 100%"
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Puedes Arrastrar las Tareas y cambiarlas de Cuadrantes</h5>
+            </div>
+          </slide>
+          <slide>
+            <img
+              src="../../../assets/AyudaImagenes/EisenhowerTareas/6.png"
+              alt="Second slide"
+              style="display: block; width: 100%"
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <h5>
+                Cuando Cambian de Cuadrantes se Actualiza la Importancia |
+                Urgencia
+              </h5>
+            </div>
+          </slide>
+          <slide>
+            <img
+              src="../../../assets/AyudaImagenes/EisenhowerTareas/7.png"
+              alt="Second slide"
+              style="display: block; width: 100%"
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Puedes Completar la tarea seleccionada usando el CheckBox</h5>
+            </div>
+          </slide>
+          <slide>
+            <img
+              src="../../../assets/AyudaImagenes/EisenhowerTareas/8.png"
+              alt="Second slide"
+              style="display: block; width: 100%"
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <h5>
+                Esto Completara la Tarea, y se guardara en Tareas Completadas
+              </h5>
+            </div>
+          </slide>
+          <slide>
+            <img
+              src="../../../assets/AyudaImagenes/EisenhowerTareas/9.png"
+              alt="Second slide"
+              style="display: block; width: 100%"
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <h5>
+                Al seleccionar una Tarea, se habilitan los botones para
+                interactuar con ella
+              </h5>
+            </div>
+          </slide>
+          <slide>
+            <img
+              src="../../../assets/AyudaImagenes/EisenhowerTareas/10.png"
+              alt="Second slide"
+              style="display: block; width: 100%"
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <h5>
+                Puedes ir a la vista de Calendario con el boton Ir a Calendario
+              </h5>
+            </div>
+          </slide>
+        </carousel>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,65 @@
+.centrar-pantalla {
+  // height: 100%;
+  height: 90vh;
+  padding: 2vh;
+}
+
+.div-centrado {
+  height: 100%;
+  border-radius: 30px;
+  padding: 3vh;
+  background-color: #ffffff;
+  border: 10px solid rgb(105, 105, 105);
+}
+
+.imagen_boton {
+  width: 8vh;
+  height: 8vh;
+}
+
+.boton-aceptar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 10vh;
+  border-radius: 25px;
+}
+.boton-aceptar:hover {
+  background-color: rgb(24, 169, 1, 0.25);
+  cursor: pointer;
+}
+
+.boton-cancelar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 10vh;
+  border-radius: 25px;
+}
+.boton-cancelar:hover {
+  background-color: rgb(255, 0, 0, 0.75);
+  cursor: pointer;
+}
+
+.derecha {
+  display: flex;
+  justify-content: end;
+}
+.izquierda {
+  display: flex;
+  justify-content: start;
+}
+.centrar-form {
+  height: 60vh;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+}
+.titulo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.form-control {
+  width: 100%;
+}

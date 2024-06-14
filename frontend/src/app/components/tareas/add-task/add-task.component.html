@@ -1,0 +1,297 @@
+<div class="centrar-pantalla">
+  <div class="div-centrado">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="row centrar-row primero">
+        <h1 class="titulo">AGREGAR TAREA</h1>
+
+        <div class="col-5 form-texto">
+          <div class="form-group">
+            <label for="titulo_input" class="form-label">Titulo</label>
+            <input
+              id="titulo_input"
+              type="text"
+              class="form-control"
+              formControlName="titulo"
+              minlength="4"
+              placeholder="Titulo de la Tarea"
+              [ngClass]="{ 'is-invalid': submitted && f['titulo'].errors }"
+              required
+            />
+            @if (submitted && f['titulo'].errors) {
+            <div class="invalid-feedback">
+              @if (f['titulo'].errors['required']) {
+              <div>Por favor ingresa un Titulo!!</div>
+              } @if (f['titulo'].errors['minlength']) {
+              <div>El Titulo debe contener al menos 4 caracteres!!</div>
+              }
+            </div>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="descripcion_input" class="form-label"
+              >Descripción</label
+            >
+            <textarea
+              id="descripcion_input"
+              formControlName="descripcion"
+              placeholder="Descripción de la Tarea"
+              required
+              minlength="4"
+              rows="3"
+              cols="30"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f['descripcion'].errors }"
+            ></textarea>
+            @if (submitted && f['descripcion'].errors) {
+            <div class="invalid-feedback">
+              @if (f['descripcion'].errors['required']) {
+              <div>Por favor ingresa una descripción!!</div>
+              } @if (f['descripcion'].errors['minlength']) {
+              <div>La descripción debe contener al menos 4 caracteres!!</div>
+              }
+            </div>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="comentarios_input" class="form-label"
+              >Comentarios</label
+            >
+            <textarea
+              id="comentarios_input"
+              class="form-control"
+              formControlName="comentarios"
+              placeholder="Comentarios sobre la Tarea"
+              rows="3"
+              cols="30"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="col-5 form-opcionales">
+          <div class="date-time-container">
+            <div class="form-group fecha">
+              <span class="p-float-label">
+                <p-calendar
+                  inputId="Fecha_input"
+                  [iconDisplay]="'input'"
+                  [showIcon]="true"
+                  formControlName="fecha_limite"
+                ></p-calendar>
+
+                <label for="Fecha_input">Fecha Límite</label>
+              </span>
+            </div>
+
+            <div class="form-group hora">
+              <span class="p-float-label">
+                <p-calendar
+                  inputId="hora_input"
+                  [timeOnly]="true"
+                  hourFormat="12"
+                  [iconDisplay]="'input'"
+                  [showIcon]="true"
+                  formControlName="hora_limite"
+                  ><ng-template pTemplate="inputicon">
+                    <i class="pi pi-stopwatch pointer-events-none"></i>
+                  </ng-template>
+                </p-calendar>
+
+                <label for="hora_input">Hora Límite</label>
+              </span>
+            </div>
+          </div>
+
+          <div class="categoria-container">
+            <div class="SelectCategory">
+              <div class="Espacio">
+                <label for="categoria">Selecciona Una Categoria</label>
+                <img
+                  src="../../../../assets/tasks/Categoria.png"
+                  alt="Logo"
+                  class="Imagen-categoria"
+                />
+              </div>
+
+              <select
+                id="categoria"
+                formControlName="categoria_id"
+                class="SELECT"
+              >
+                <option
+                  *ngFor="let categoria of UserCategorias"
+                  value="{{ categoria.idCategory }}"
+                >
+                  {{ categoria.name }}
+                </option>
+              </select>
+            </div>
+
+            <div class="boton-categoria">
+              <button
+                matTooltip="BOTON PARA CREAR NUEVA CATEGORIA"
+                [matTooltipPosition]="'after'"
+                class="nav-link pequeñosBotones"
+                type="button"
+                (click)="BotonAgregarCategoria()"
+              >
+                <img
+                  src="../../../../assets/tasks/Mas.png"
+                  alt="Logo"
+                  class="Botones-formulario"
+                />
+              </button>
+            </div>
+            <!-- <div class="boton-categoria">
+              <button
+                class="nav-link pequeñosBotones"
+                type="button"
+                (click)="BotonEliminarCategoria()"
+              >
+                <img
+                  src="../../../../assets/tasks/Borrar.png"
+                  alt="Logo"
+                  class="Botones-formulario"
+                />
+              </button>
+            </div> -->
+          </div>
+        </div>
+
+        <div class="col-12 cuarto">
+          <div class="row justify-content-center align-items-center">
+            <div class="col-3 align-self-start izquierda">
+              <a
+                matTooltip="BOTON PARA REGRESAR A LISTA DE TAREAS"
+                [matTooltipPosition]="'after'"
+                class="boton-cancelar nav-link"
+                (click)="Cancelar()"
+              >
+                <img
+                  src="../../../../assets/notes/Cancelar.png"
+                  alt="Logo"
+                  class="imagen_boton"
+                />
+                Cancelar
+              </a>
+            </div>
+            <div class="col-6">
+              <div class="row importancia_urgencia">
+                <div class="col-6 importancia">
+                  <p>¿Es importante?</p>
+                  <div class="form-group">
+                    <div class="switch-container">
+                      <span class="no">No</span>
+                      <p-inputSwitch
+                        name="importancia_input"
+                        formControlName="importancia"
+                      ></p-inputSwitch>
+                      <span class="si">Si</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6 urgencia">
+                  <p>¿Es urgente?</p>
+                  <div class="form-group">
+                    <div class="switch-container">
+                      <span class="no">No</span>
+                      <p-inputSwitch
+                        name="urgencia_input"
+                        formControlName="urgencia"
+                      ></p-inputSwitch>
+                      <span class="si">Si</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-3 align-self-end derecha">
+              <div class="form-group">
+                <a
+                  matTooltip="BOTON PARA CREAR NUEVA TAREA"
+                  [matTooltipPosition]="'before'"
+                  class="boton-aceptar nav-link"
+                  (click)="onSubmit()"
+                >
+                  <img
+                    src="../../../../assets/notes/Aceptar.png"
+                    alt="Logo"
+                    class="imagen_boton"
+                  />
+                  Aceptar
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal para Agregar Nueva Categoria -->
+<ng-template #templateAddCategory>
+  <div class="modal-header">
+    <h4 class="modal-title text-center">Agregar Nueva Categoria</h4>
+    <button
+      type="button"
+      class="btn-close"
+      (click)="modalRef.hide()"
+      (click)="CancelarModal()"
+    ></button>
+  </div>
+  <div class="modal-body text-center">
+    <div>
+      <p>¿Quieres Agregar una Nueva Categoria?</p>
+      <img
+        src="../../../../assets/BERT/Bert_Preguntar.gif"
+        style="width: 25vh"
+      />
+    </div>
+    <div>
+      <form [formGroup]="AgregarCategoriaForm" (ngSubmit)="AgregarCategoria()">
+        <input
+          id="categoria_input"
+          type="text"
+          class="form-control"
+          required=""
+          formControlName="AgregarCategoria"
+          placeholder="Nueva Categoria"
+        />
+        <div
+          *ngIf="
+            submittedCategory &&
+            AgregarCategoriaForm.get('AgregarCategoria')?.errors
+          "
+        >
+          <div
+            *ngIf="
+              AgregarCategoriaForm.get('AgregarCategoria')?.hasError('required')
+            "
+            class="MensajeError"
+          >
+            ¡¡¡ Agrega una categoria !!!
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="Botones_sesion_abandonada">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="modalRef.hide()"
+        (click)="CancelarModal()"
+      >
+        Regresar
+      </button>
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="AgregarCategoria()"
+      >
+        Guardar
+      </button>
+    </div>
+  </div>
+</ng-template>

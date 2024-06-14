@@ -1,0 +1,65 @@
+<div class="centrar-pantalla">
+  <div class="div-centrado">
+    <div class="row justify-content-center align-items-center">
+      <h1 class="titulo">VER NOTA</h1>
+      <div class="col-12 centrar-form">
+        <form #noteForm="ngForm" novalidate class="form-group">
+          <div class="form-group">
+            <label for="title" class="form-label descripcion">Titulo</label>
+            <input
+              type="text"
+              class="form-control"
+              name="title"
+              placeholder="{{ note.title }}"
+              disabled
+            />
+          </div>
+          <div class="form-group">
+            <label for="content" class="form-label descripcion"
+              >Descripción</label
+            >
+            <textarea
+              class="form-control"
+              name="content"
+              placeholder="{{ note.description }}"
+              rows="7"
+              cols="100"
+              disabled
+            ></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="col-6 centrar">
+        <p class="descripcion">Fecha de Creación:</p>
+        <p class="note-date">
+          {{ note.createdAt | date : "medium" }}
+        </p>
+      </div>
+      <div class="col-6 centrar">
+        <p class="descripcion">Ultima Modificación:</p>
+        <p class="note-date">
+          {{ note.updatedAt | date : "medium" }}
+        </p>
+      </div>
+      <div class="col-12">
+        <div class="row justify-content-center align-items-center">
+          <div class="col-12 align-self-start izquierda">
+            <a
+              matTooltip="BOTON PARA REGRESAR A LISTA DE NOTAS"
+              [matTooltipPosition]="'after'"
+              class="boton-cancelar nav-link"
+              (click)="Cancelar()"
+            >
+              <img
+                src="../../../../assets/notes/Regresar.png"
+                alt="Logo"
+                class="imagen_boton"
+              />
+              Regresar
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,348 @@
+<div class="centrar-pantalla">
+  <div class="div-centrado">
+    <h5 class="titulo">Mi cuenta</h5>
+    <div class="row justify-content-center align-items-center">
+      <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 UserImage">
+        <div
+          matTooltip="IMAGEN DE PERFIL "
+          [matTooltipPosition]="'above'"
+          *ngIf="this.currentUser.image == null"
+          class="contenedor-imagen image-button"
+        >
+          <img src="{{ imgSrc }}" alt="Profile picture" class="imagen" />
+        </div>
+
+        <div
+          matTooltip="IMAGEN DE PERFIL "
+          [matTooltipPosition]="'above'"
+          *ngIf="this.currentUser.image != null"
+          class="contenedor-imagen image-button"
+        >
+          <img [src]="base64Image" alt="Profile picture" class="imagen" />
+        </div>
+      </div>
+      <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-7">
+        <div class="card text-start p-0">
+          <div class="card-header">
+            <h5 class="card-title">Nombre de Usuario:</h5>
+          </div>
+          <div class="card-body">
+            <p class="card-text">
+              {{ nombre_usuario }}
+            </p>
+          </div>
+        </div>
+        <div class="card text-start p-0">
+          <div class="card-header">
+            <h5 class="card-title">Correo Electrónico:</h5>
+          </div>
+          <div class="card-body">
+            <p class="card-text">{{ correo }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-2">
+        <div class="row justify-content-center align-items-center botones">
+          <div class="col-auto">
+            <a
+              matTooltip="BOTON PARA CERRAR SESIÓN Y SALIR DEL SISTEMA"
+              [matTooltipPosition]="'before'"
+              class="boton boton_cerrar_sesion nav-link"
+              (click)="BotonCerrarSesion()"
+            >
+              <img
+                src="../../assets/profile/Cerrar Sesion.png"
+                alt="Logo"
+                class="imagen_boton"
+              />
+              Cerrar Sesion</a
+            >
+          </div>
+          <div class="col-auto">
+            <a
+              matTooltip="BOTON PARA EDITAR IMAGEN DE PERFIL Y NOMBRE DE USUARIO "
+              [matTooltipPosition]="'before'"
+              class="boton nav-link"
+              (click)="EditCuenta()"
+              ><img
+                src="../../assets/profile/Editar.png"
+                alt="Logo"
+                class="imagen_boton"
+              />Editar</a
+            >
+          </div>
+        </div>
+        <div class="row justify-content-center align-items-center botones">
+          <div class="col-auto">
+            <a
+              matTooltip="BOTON PARA CAMBIAR CONTRASEÑA DE LA CUENTA"
+              [matTooltipPosition]="'before'"
+              class="boton nav-link"
+              (click)="BotonCambiarContrasenia()"
+              ><img
+                src="../../assets/profile/Cambiar_Contra.png"
+                alt="Logo"
+                class="imagen_boton"
+              />Cambiar Contraseña</a
+            >
+          </div>
+          <div class="col-auto">
+            <a
+              matTooltip="BOTON PARA ELIMINAR CUENTA DEL SISTEMA"
+              [matTooltipPosition]="'before'"
+              class="boton boton_eliminar_cuenta nav-link"
+              (click)="BotonEliminarCuenta()"
+              ><img
+                src="../../assets/profile/Eliminar_Cuenta.png"
+                alt="Logo"
+                class="imagen_boton"
+              />
+              Eliminar Cuenta</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Para Cerrar Sesion-->
+<ng-template #templateCerrarSesion>
+  <div class="modal-header">
+    <h4 class="modal-title text-center">Cerrar Sesión</h4>
+    <button
+      type="button"
+      class="btn-close"
+      (click)="modalRef.hide()"
+      (click)="CancelarModal()"
+    ></button>
+  </div>
+  <div class="modal-body text-center">
+    <div>
+      <p>¿Quieres Cerrar Sesión y Salir del Sistema?</p>
+      <img
+        src="../../../../assets/BERT/Bert_Durmiendo.gif"
+        style="width: 25vh"
+      />
+    </div>
+
+    <div class="Botones_sesion_abandonada">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="modalRef.hide()"
+        (click)="CancelarModal()"
+      >
+        Regresar
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="modalRef.hide()"
+        (click)="logout()"
+      >
+        Cerrar Sesión
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Modal Para Cambiar Contraseña-->
+<ng-template #templateCambiarContra>
+  <div class="modal-header">
+    <h4 class="modal-title text-center">Cambiar Contraseña</h4>
+    <button
+      type="button"
+      class="btn-close"
+      (click)="modalRef.hide()"
+      (click)="CancelarModal()"
+    ></button>
+  </div>
+  <div class="modal-body text-center">
+    <form
+      name="form"
+      #f="ngForm"
+      (ngSubmit)="f.form.valid && CambiarContrasenia()"
+      novalidate
+      [appMatchPassword]="['password', 'confirmPassword']"
+    >
+      <div>
+        <p>¿Quieres Cambiar tu Contraseña?</p>
+        <img
+          src="../../../../assets/BERT/Bert_Pensativo.gif"
+          style="width: 25vh"
+        />
+      </div>
+      <div>
+        <!-- CONTRASEÑA -->
+        <div class="form-group">
+          <label for="password" class="form-label">Contraseña</label>
+          <div class="ROW">
+            <p-password
+              type="password"
+              name="password"
+              styleClass="p-component p-fluid"
+              [style]="{ width: '100%' }"
+              class="ContraInput"
+              placeholder="Ingresa tu contraseña..."
+              [(ngModel)]="CambiarContraseniaForm.password"
+              [toggleMask]="true"
+              [feedback]="false"
+              required
+              minlength="6"
+              maxlength="40"
+              #password="ngModel"
+              [ngClass]="{
+                'is-invalid': f.submitted && password.errors,
+                'ng-invalid ng-dirty ': f.submitted && password.errors
+              }"
+            />
+
+            @if ( f.submitted && password.errors) {
+            <div class="invalid-feedback">
+              @if (password.errors['required']) {
+              <div>Por favor ingresa una contraseña</div>
+              } @if (password.errors['minlength']) {
+              <div>La contraseña debe contener al menos 6 caracteres</div>
+              }@if (password.errors['maxlength']) {
+              <div>La contraseña debe contener como maximo 40 caracteres</div>
+              }
+            </div>
+            }
+          </div>
+        </div>
+        <!-- CONFIRMAR CONTRASEÑA -->
+        <div class="form-group Contraseña">
+          <label for="#confirmPassword" class="form-label"
+            >Confirmar Contraseña</label
+          >
+          <div>
+            <p-password
+              type="password"
+              name="confirmPassword"
+              styleClass="p-component p-fluid"
+              [style]="{ width: '100%' }"
+              class="ContraInput"
+              placeholder="Confirma tu contraseña..."
+              [(ngModel)]="CambiarContraseniaForm.confirmPassword"
+              [toggleMask]="true"
+              [feedback]="false"
+              required
+              #confirmPassword="ngModel"
+              [ngClass]="{
+                'is-invalid': f.submitted && confirmPassword.errors,
+                'ng-invalid ng-dirty ': f.submitted && confirmPassword.errors
+              }"
+            />
+            @if (f.submitted && confirmPassword.errors) {
+            <div class="invalid-feedback">
+              @if (confirmPassword.errors['required']) {
+              <div>Por favor confirma la contraseña</div>
+              }@if (confirmPassword.errors['matching']) {
+              <div>Las contraseñas no coinciden.</div>
+              }
+            </div>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="Botones_sesion_abandonada">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="modalRef.hide()"
+          (click)="CancelarModal()"
+        >
+          Regresar
+        </button>
+
+        <button type="button" class="btn btn-secondary" type="submit">
+          Guardar
+        </button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<!-- Modal Para Eliminar Cuenta-->
+<ng-template #templateEliminarCuenta>
+  <div class="modal-header">
+    <h4 class="modal-title text-center">Eliminar Cuenta</h4>
+    <button
+      type="button"
+      class="btn-close"
+      (click)="modalRef.hide()"
+      (click)="CancelarModal()"
+    ></button>
+  </div>
+  <div class="modal-body text-center">
+    <div>
+      <p>¿Quieres Eliminar Completamente tu Cuenta?</p>
+      <img src="../../../../assets/BERT/Bert_Ansioso.gif" style="width: 25vh" />
+    </div>
+    <div>
+      <p>
+        Esto eliminara todos tus datos, tus tareas, tus notas y tus Sesiones
+        Pomodoro
+      </p>
+    </div>
+    <div class="Botones_sesion_abandonada">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="modalRef.hide()"
+        (click)="CancelarModal()"
+      >
+        Regresar
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="modalRef.hide()"
+        (click)="BotonUltimaConfirmacionEliminarCuenta()"
+      >
+        Eliminar Cuenta
+      </button>
+    </div>
+  </div>
+</ng-template>
+<!-- Modal Para Eliminar Cuenta-->
+<ng-template #templateConfirmarEliminarCuenta>
+  <div class="modal-header">
+    <h4 class="modal-title text-center">Eliminar Cuenta Confirmación</h4>
+    <button
+      type="button"
+      class="btn-close"
+      (click)="modalRef.hide()"
+      (click)="CancelarModal()"
+    ></button>
+  </div>
+  <div class="modal-body text-center">
+    <div>
+      <p>Esta es la ultima Advertencia.</p>
+      <p>¿Confirmas eliminar tu Cuenta?</p>
+      <img src="../../../../assets/BERT/Bert_Triste.gif" style="width: 25vh" />
+    </div>
+    <div class="Botones_sesion_abandonada">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="modalRef.hide()"
+        (click)="CancelarModal()"
+      >
+        Regresar
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="modalRef.hide()"
+        (click)="EliminarCuenta()"
+      >
+        Confirmar Eliminar Cuenta
+      </button>
+    </div>
+  </div>
+</ng-template>

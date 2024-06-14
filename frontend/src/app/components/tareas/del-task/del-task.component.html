@@ -1,0 +1,174 @@
+<div class="centrar-pantalla">
+  <div class="div-centrado">
+    <div class="row centrar-row primero">
+      <h1 class="titulo">ELIMINAR TAREA</h1>
+
+      <div class="col-5 form-texto">
+        <div class="form-group">
+          <label for="titulo" class="form-label">Titulo</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="{{ task.title }}"
+            disabled
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="descripcion" class="form-label">Descripción</label>
+          <textarea
+            minlength="3"
+            rows="3"
+            cols="30"
+            class="form-control"
+            placeholder="{{ task.description }}"
+            disabled
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="comentarios" class="form-label">Comentarios</label>
+          <textarea
+            class="form-control"
+            id="comentarios"
+            rows="3"
+            cols="30"
+            placeholder="{{ task.comments }}"
+            disabled
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="col-5 form-opcionales">
+        <div class="date-time-container">
+          <div class="form-group fecha">
+            <label for="fecha_limite">Fecha Límite</label>
+            <p-calendar
+              inputId="Fecha Límite"
+              [iconDisplay]="'input'"
+              [showIcon]="true"
+              placeholder="{{ task.deadline | date : 'mediumDate' }}"
+              [disabled]="true"
+              class="p-calendar"
+            ></p-calendar>
+          </div>
+
+          <div class="form-group hora">
+            <label for="hora_limite">Hora Límite</label>
+            <p-calendar
+              [timeOnly]="true"
+              hourFormat="12"
+              [iconDisplay]="'input'"
+              [showIcon]="true"
+              placeholder="{{ task.deadline | date : 'shortTime' }}"
+              [disabled]="true"
+              class="p-calendar"
+              ><ng-template pTemplate="inputicon">
+                <i class="pi pi-stopwatch pointer-events-none"></i>
+              </ng-template>
+            </p-calendar>
+          </div>
+        </div>
+
+        <!-- <div class="recordatorios-container">
+          <div class="form-group recordatorios">
+            <span class="p-float-label recordatorio">
+              <p-dropdown
+                class="my-dropdown"
+                optionLabel="name"
+                [options]="recordatorios"
+                [showClear]="true"
+                autoWidth="false"
+                [style]="{ width: '100%' }"
+                placeholder="|"
+                [disabled]="true"
+              ></p-dropdown>
+              <label for="recordatorios">Recordatorios:</label>
+            </span>
+          </div>
+        </div> -->
+
+        <div class="categoria-container">
+          <div class="SelectCategory">
+            <div class="Espacio">
+              <label for="categoria">Categoria:</label>
+              <img
+                src="../../../../assets/tasks/Categoria.png"
+                alt="Logo"
+                class="Imagen-categoria"
+              />
+            </div>
+
+            <input
+              type="text"
+              class="form-control"
+              placeholder="{{ TaskCategory.name }}"
+              disabled
+            />
+          </div>
+        </div>
+        <div class="row importancia_urgencia">
+          <div class="col-6 importancia">
+            <p>¿Es importante?</p>
+
+            <div class="switch-container">
+              <span class="no">No</span>
+              <p-inputSwitch
+                [(ngModel)]="importancia"
+                [disabled]="true"
+              ></p-inputSwitch>
+              <span class="si">Si</span>
+            </div>
+          </div>
+          <div class="col-6 urgencia">
+            <p>¿Es urgente?</p>
+            <div class="switch-container">
+              <span class="no">No</span>
+              <p-inputSwitch
+                [disabled]="true"
+                [(ngModel)]="urgencia"
+              ></p-inputSwitch>
+              <span class="si">Si</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center align-items-center">
+        <div class="col-2 align-self-start izquierda">
+          <a
+            matTooltip="BOTON PARA REGRESAR A LISTA DE TAREAS"
+            [matTooltipPosition]="'after'"
+            class="boton-cancelar nav-link"
+            (click)="Cancelar()"
+          >
+            <img
+              src="../../../../assets/notes/Cancelar.png"
+              alt="Logo"
+              class="imagen_boton"
+            />
+            Cancelar
+          </a>
+        </div>
+        <div class="col-8 centrar-pregunta">
+          <div class="pregunta">¿Quieres eliminar la tarea?</div>
+        </div>
+        <div class="col-2 align-self-end derecha">
+          <a
+            matTooltip="BOTON PARA ELIMINAR LA TAREA"
+            [matTooltipPosition]="'before'"
+            class="boton-aceptar nav-link"
+            (click)="onSubmit()"
+          >
+            <img
+              src="../../../../assets/notes/Eliminar.png"
+              alt="Logo"
+              class="imagen_boton"
+            />
+            Eliminar
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

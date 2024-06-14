@@ -1,0 +1,114 @@
+<div class="centrar-pantalla">
+  <div class="div-centrado">
+    <div class="row ustify-content-center align-items-center">
+      <h1 class="titulo">EDITAR NOTA</h1>
+      <div class="col-12 centrar-form">
+        <form
+          #noteForm="ngForm"
+          (ngSubmit)="onSubmit()"
+          novalidate
+          class="form-group"
+        >
+          <div class="form-group">
+            <label for="title" class="form-label descripcion">Titulo</label>
+            <input
+              type="text"
+              class="form-control"
+              name="title"
+              [(ngModel)]="note.title"
+              required
+              minlength="3"
+              maxlength="30"
+              #titleInput="ngModel"
+              [ngClass]="{ 'is-invalid': submitted && titleInput.errors }"
+            />
+            <div
+              class="invalid-feedback"
+              *ngIf="submitted && titleInput.errors"
+            >
+              <ul>
+                <li *ngIf="titleInput.errors['required']">
+                  Por favor ingresa un titulo
+                </li>
+                <li *ngIf="titleInput.errors['minlength']">
+                  El titulo debe tener al menos 3 caracteres
+                </li>
+                <li *ngIf="titleInput.errors['maxlength']">
+                  El titulo debe contener como maximo 30 caracteres
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="content" class="form-label descripcion"
+              >Descripción</label
+            >
+            <textarea
+              class="form-control"
+              name="content"
+              [(ngModel)]="note.description"
+              rows="7"
+              cols="100"
+              #contentInput="ngModel"
+              [ngClass]="{ 'is-invalid': submitted && contentInput.errors }"
+            ></textarea>
+            <div
+              class="invalid-feedback"
+              *ngIf="submitted && contentInput.errors"
+            >
+              <li *ngIf="contentInput.errors['required']">
+                Por favor ingresa una descripción
+              </li>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-12">
+        <div class="row justify-content-center align-items-center">
+          <div class="col-6 centrar">
+            <p class="descripcion">Fecha de Creación:</p>
+            <p class="note-date">
+              {{ note.createdAt | date : "medium" }}
+            </p>
+          </div>
+          <div class="col-6 centrar">
+            <p class="descripcion">Ultima Modificación:</p>
+            <p class="note-date">
+              {{ note.updatedAt | date : "medium" }}
+            </p>
+          </div>
+          <div class="col-6 align-self-start izquierda">
+            <a
+              matTooltip="BOTON PARA REGRESAR A LISTA DE NOTAS"
+              [matTooltipPosition]="'after'"
+              class="boton-cancelar nav-link"
+              (click)="Cancelar()"
+            >
+              <img
+                src="../../../../assets/notes/Cancelar.png"
+                alt="Logo"
+                class="imagen_boton"
+              />
+              Cancelar
+            </a>
+          </div>
+          <div class="col-6 align-self-end derecha">
+            <a
+              matTooltip="BOTON PARA GUARDAR CAMBIOS EN LA NOTA"
+              [matTooltipPosition]="'before'"
+              class="boton-aceptar nav-link"
+              (click)="onSubmit()"
+            >
+              <img
+                src="../../../../assets/notes/Aceptar.png"
+                alt="Logo"
+                class="imagen_boton"
+              />
+              Aceptar
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

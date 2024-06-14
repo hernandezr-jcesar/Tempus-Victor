@@ -1,0 +1,214 @@
+<div class="row">
+  <div class="col-12 d-flex justify-content-center">
+    <h1 class="titulo">POMODORO</h1>
+  </div>
+</div>
+<div class="overflow-y-auto CONTENEDOR">
+  <!-- INFORMACION DE TAREA -->
+  <div class="row">
+    <div class="col-1"></div>
+    <div class="col-10 Informacion_Tarea">
+      <div class="form-group">
+        <label for="titulo">Titulo</label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="{{ task.title }}"
+          disabled
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="descripcion">Descripción</label>
+        <textarea
+          minlength="3"
+          rows="3"
+          cols="50"
+          class="form-control"
+          placeholder="{{ task.description }}"
+          disabled
+        ></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="comentarios">Comentarios</label>
+        <textarea
+          class="form-control"
+          id="comentarios"
+          rows="3"
+          cols="50"
+          placeholder="{{ task.comments }}"
+          disabled
+        ></textarea>
+      </div>
+    </div>
+    <div class="col-1"></div>
+    <div class="col-1"></div>
+    <div class="col-10 Informacion_Tarea">
+      <div class="form-group">
+        <label for="fecha_limite">Fecha Límite</label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="{{ task.deadline | date : 'mediumDate' }}"
+          disabled
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="hora_limite">Hora Límite</label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="{{ task.deadline | date : 'shortTime' }}"
+          disabled
+        />
+      </div>
+      <div class="form-group">
+        <p>¿Es importante?</p>
+
+        <div class="switch-container">
+          <span class="no">No</span>
+          <p-inputSwitch
+            [(ngModel)]="importancia"
+            [disabled]="true"
+          ></p-inputSwitch>
+          <span class="si">Si</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <p>¿Es urgente?</p>
+        <div class="switch-container">
+          <span class="no">No</span>
+          <p-inputSwitch
+            [disabled]="true"
+            [(ngModel)]="urgencia"
+          ></p-inputSwitch>
+          <span class="si">Si</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <h4>¿Qué es la técnica Pomodoro?</h4>
+
+      <p>
+        La técnica Pomodoro es un método de gestión del tiempo que consiste en
+        usar un temporizador para trabajar en intervalos fijos, llamados
+        pomodoros, de 25 minutos de actividad, seguidos de 5 minutos de
+        descanso, con pausas más largas cada cuatro pomodoros.
+        <a
+          [href]="
+            'https://todoist.com/es/productivity-methods/pomodoro-technique'
+          "
+          target="_blank"
+          >Mas informacion...Aqui.</a
+        >
+      </p>
+
+      <h4>¿Cuánto tiempo crees que te llevará esta tarea?</h4>
+      <p>
+        Estima el tiempo que tardarás en completar la tarea en iteraciones
+        Pomodoro (cada una de 25 minutos). Esta estimación te ayudará a
+        planificar tu trabajo y establecer expectativas realistas.
+      </p>
+    </div>
+    <div class="col-4">
+      <div class="pomodoro-estimacion">
+        <h2>Estima los Pomodoros</h2>
+
+        <div class="button-group botones-estimacion-container">
+          <button
+            matTooltip="BOTON PARA QUITAR 1 POMODORO A LA ESTIMACIÓN"
+            [matTooltipPosition]="'before'"
+            class="remove-pomodoro-button botones-columna"
+            (click)="removePomodoro()"
+            [disabled]="pomodoros <= 0"
+          >
+            <img
+              src="../../../assets/pomodoro/signo-de-resta.png"
+              alt="Logo"
+              class="imagen_boton_2"
+            />
+            Quitar Pomodoro
+          </button>
+          <button
+            matTooltip="BOTON PARA AGREGAR 1 POMODORO A LA ESTIMACIÓN"
+            [matTooltipPosition]="'after'"
+            class="add-pomodoro-button botones-columna"
+            (click)="addPomodoro()"
+          >
+            <img
+              src="../../../assets/pomodoro/signo-de-suma.png"
+              alt="Logo"
+              class="imagen_boton_2"
+            />
+            Agregar Pomodoro
+          </button>
+        </div>
+
+        <div class="pomodoro-counter">
+          <div class="pomodoro-image" *ngFor="let _ of range(pomodoros)">
+            <img
+              src="../../../../assets/pomodoro/Pomodoro.png"
+              alt="Tomato"
+              width="50"
+              height="50"
+            />
+          </div>
+        </div>
+        <div class="horizontal-line"></div>
+      </div>
+    </div>
+    <div class="col-2">
+      <div class="pomodoro-tiempos">
+        <p>
+          Tiempo Trabajo:
+          <br />
+          {{ duraciontrabajo.hours }} hrs {{ duraciontrabajo.minutes }} min
+        </p>
+        <p>
+          Tiempo Descanso:
+          <br />
+          {{ duraciondescanso.hours }} hrs {{ duraciondescanso.minutes }} min
+        </p>
+        <p>
+          Tiempo Total:
+          <br />
+          {{ tiempototal.hours }} hrs {{ tiempototal.minutes }} min
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6 align-self-start izquierda">
+      <a
+        matTooltip="BOTON PARA REGRESAR A LISTA DE TAREAS"
+        [matTooltipPosition]="'before'"
+        class="boton-regresar nav-link"
+        (click)="Cancelar()"
+      >
+        <img
+          src="../../../../assets/notes/Regresar.png"
+          alt="Logo"
+          class="imagen_boton"
+        />
+        Regresar
+      </a>
+    </div>
+    <div class="col-6 align-self-start derecha">
+      <a
+        matTooltip="BOTON PARA EMPEZAR SESION POMODORO"
+        [matTooltipPosition]="'before'"
+        class="boton-empezar-sesion nav-link"
+        (click)="EmpezarSesion()"
+      >
+        <img
+          src="../../../../assets/notes/Aceptar.png"
+          alt="Logo"
+          class="imagen_boton"
+        />
+        Empezar Sesion
+      </a>
+    </div>
+  </div>
+</div>

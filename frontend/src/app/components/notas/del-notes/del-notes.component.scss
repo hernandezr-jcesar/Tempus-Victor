@@ -1,0 +1,96 @@
+.centrar-pantalla {
+  // height: 100%;
+  height: 90vh;
+  padding: 2vh;
+}
+
+.div-centrado {
+  height: 100%;
+  border-radius: 30px;
+  padding: 3vh;
+  background-color: #ffffff;
+  border: 10px solid rgb(105, 105, 105);
+}
+
+.imagen_boton {
+  width: 8vh;
+  height: 8vh;
+}
+
+.boton-aceptar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 10vh;
+  border-radius: 25px;
+}
+.boton-aceptar:hover {
+  background-color: rgb(24, 169, 1, 0.25);
+  cursor: pointer;
+}
+.boton-cancelar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 10vh;
+  border-radius: 25px;
+}
+.boton-cancelar:hover {
+  background-color: rgb(255, 0, 0, 0.75);
+  cursor: pointer;
+}
+.derecha {
+  display: flex;
+  justify-content: end;
+}
+.izquierda {
+  display: flex;
+  justify-content: start;
+}
+
+.centrar-form {
+  display: flex;
+  justify-content: center;
+}
+.titulo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.form-control {
+  width: 100%;
+}
+.pregunta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border: 3px solid black;
+  padding: 10px;
+  border-radius: 20px;
+  width: 50%;
+}
+.centrar-pregunta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.centrar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.descripcion {
+  font-weight: bold;
+}
+
+.note-date {
+  background: #e9e9e9;
+  padding: 1vh;
+  border: 1px solid rgb(190, 190, 190);
+  border-radius: 5px;
+  color: rgb(140, 140, 140);
+}

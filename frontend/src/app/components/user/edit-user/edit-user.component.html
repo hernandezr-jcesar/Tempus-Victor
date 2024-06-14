@@ -1,0 +1,120 @@
+<div class="centrar-pantalla">
+  <div class="div-centrado">
+    <h5 class="titulo">EDITAR CUENTA</h5>
+
+    <form
+      [formGroup]="formCuenta"
+      (ngSubmit)="SaveChanges()"
+      [appMatchPassword]="['UserName', 'ConfirmUserName']"
+    >
+      <div class="row InfoUser">
+        <div class="col-3"></div>
+
+        <div class="col-3 UserImage">
+          <div
+            class="contenedor-imagen image-button"
+            (click)="openFileDialog()"
+          >
+            <img
+              src="{{ imagenSuperiorSrc }}"
+              alt="Profile picture"
+              class="imagen"
+            />
+          </div>
+          <h5>Da click arriba y selecciona la nueva imagen para tu Cuenta</h5>
+          <input
+            type="file"
+            accept="image/*"
+            id="fileInput"
+            (change)="onFileChange($event)"
+            style="display: none"
+          />
+        </div>
+
+        <div class="col-3 UserName">
+          <div class="card text-start p-0">
+            <div class="form-group">
+              <label for="UserName" class="form-label"
+                >Nuevo Nombre de Usuario:</label
+              >
+              <input
+                id="UserName"
+                formControlName="UserName"
+                type="text"
+                class="form-control input"
+                required
+                minlength="4"
+                [ngClass]="{ 'is-invalid': submitted && f['UserName'].errors }"
+              />
+              @if (submitted && f['UserName'].errors ){
+              <div class="invalid-feedback">
+                @if (f['UserName'].errors['required']) {
+                <div>Por favor ingresa un nuevo nombre de usuario</div>
+                } @if (f['UserName'].errors['minlength']) {
+                <div>
+                  El nombre de usuario debe contener al menos 4 caracteres
+                </div>
+                }
+              </div>
+              }
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="ConfirmUserName" class="form-label"
+              >Confirmar Nombre Usuario:</label
+            >
+            <input
+              id="ConfirmUserName"
+              formControlName="ConfirmUserName"
+              type="text"
+              class="form-control input"
+              placeholder="Confirma el nuevo nombre de usuario..."
+              required
+              minlength="4"
+              [ngClass]="{
+                'is-invalid': submitted && f['ConfirmUserName'].errors
+              }"
+            />
+            @if (submitted && f['ConfirmUserName'].errors ){
+            <div class="invalid-feedback">
+              @if (f['ConfirmUserName'].errors['required']) {
+              <div>Por favor confirma el nuevo nombre de usuario</div>
+              } @if (f['ConfirmUserName'].errors['matching']) {
+              <div>Los nombres de Usuario no Coinciden</div>
+              }
+            </div>
+            }
+          </div>
+        </div>
+        <div class="col-3"></div>
+      </div>
+
+      <div class="row Botones">
+        <div class="col-6 izquierda">
+          <a class="boton-cancelar nav-link" (click)="Cancelar()">
+            <img
+              src="../../../../assets/notes/Cancelar.png"
+              alt="Logo"
+              class="imagen_boton"
+            />
+            Cancelar
+          </a>
+        </div>
+
+        <div class="col-6 derecha">
+          <div class="form-group">
+            <button type="submit" class="boton-aceptar">
+              <img
+                src="../../../../assets/notes/Aceptar.png"
+                alt="Logo"
+                class="imagen_boton"
+              />
+              Aceptar
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

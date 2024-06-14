@@ -1,0 +1,146 @@
+.CONTENEDOR {
+  height: 82vh;
+  padding: 2vh;
+  // border: 10px solid rgb(0, 255, 145);
+}
+.titulo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // border: 5px solid rgb(230, 0, 255);
+}
+
+.Informacion_Tarea {
+  // border: 5px solid black;
+  display: flex;
+  align-items: start;
+  flex-direction: row;
+  justify-content: center;
+  gap: 30px;
+}
+
+.imagen_boton {
+  width: 8vh;
+  height: 8vh;
+}
+.imagen_boton_2 {
+  width: 5vh;
+  height: 5vh;
+}
+
+.boton-cancelar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 10vh;
+  border-radius: 25px;
+}
+.boton-cancelar:hover {
+  background-color: rgb(255, 0, 0, 0.75);
+  cursor: pointer;
+}
+
+.derecha {
+  display: flex;
+  justify-content: end;
+}
+.izquierda {
+  display: flex;
+  justify-content: start;
+}
+.boton-regresar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 15vh;
+  border-radius: 25px;
+}
+.boton-empezar-sesion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 20vh;
+  border-radius: 25px;
+}
+.boton-regresar:hover {
+  background-color: rgb(255, 0, 0, 0.75);
+  cursor: pointer;
+}
+.boton-empezar-sesion:hover {
+  background-color: rgb(27, 169, 96);
+  cursor: pointer;
+}
+
+//// POMODORO
+.pomodoro-estimacion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+.pomodoro-tiempos {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding: 20px;
+}
+.botones-estimacion-container {
+  padding: 0px;
+  gap: 30px;
+  min-width: 40vh;
+}
+.botones-columna {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+.add-pomodoro-button {
+  border: 3px solid rgb(120, 120, 120);
+  background-color: rgb(255, 255, 255);
+  border-radius: 20px;
+}
+.remove-pomodoro-button {
+  border: 3px solid rgb(120, 120, 120);
+  background-color: rgb(255, 255, 255);
+  border-radius: 20px;
+}
+.remove-pomodoro-button:disabled {
+  border: 3px solid rgb(200, 200, 200);
+}
+.add-pomodoro-button:hover {
+  border: 3px solid rgb(255, 255, 255);
+  background-color: rgb(200, 200, 200);
+}
+.remove-pomodoro-button:hover {
+  border: 3px solid rgb(255, 255, 255);
+  background-color: rgb(200, 200, 200);
+}
+.remove-pomodoro-button.botones-columna:disabled img.imagen_boton_2 {
+  filter: grayscale(50%); /* Example: image in grayscale at 50% */
+  opacity: 0.3; /* Example: reduce opacity of the image */
+}
+
+.pomodoro-counter {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.pomodoro-image {
+  margin: 5px;
+}
+
+.button-group {
+  display: flex;
+  margin-bottom: 20px;
+}
+.horizontal-line {
+  width: 100%; /* Make the line span the full width of the container */
+  height: 2px; /* Set the line height */
+  background-color: #ccc; /* Set the line color */
+  margin: 20px 0; /* Add margins above and below the line */
+}

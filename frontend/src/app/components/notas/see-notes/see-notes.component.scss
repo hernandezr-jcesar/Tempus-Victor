@@ -1,0 +1,63 @@
+.centrar-pantalla {
+  height: 90vh;
+  padding: 2vh;
+}
+
+.div-centrado {
+  height: 100%;
+  border-radius: 30px;
+  padding: 3vh;
+  background-color: #ffffff;
+  border: 10px solid rgb(105, 105, 105);
+}
+
+.imagen_boton {
+  width: 8vh;
+  height: 8vh;
+}
+
+.boton-cancelar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 12vh;
+  border-radius: 25px;
+}
+.boton-cancelar:hover {
+  background-color: rgba(202, 200, 200, 0.75);
+  cursor: pointer;
+}
+
+.izquierda {
+  display: flex;
+  justify-content: start;
+}
+
+.centrar-form {
+  display: flex;
+  justify-content: center;
+}
+.titulo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.centrar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.descripcion {
+  font-weight: bold;
+}
+
+.note-date {
+  background: #e9e9e9;
+  padding: 1vh;
+  border: 1px solid rgb(190, 190, 190);
+  border-radius: 5px;
+  color: rgb(140, 140, 140);
+}

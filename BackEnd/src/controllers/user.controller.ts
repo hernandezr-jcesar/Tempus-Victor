@@ -1,0 +1,115 @@
+import { Request, Response } from "express";
+import bcrypt from "bcryptjs";
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
+
+const getUser = async (req: Request, res: Response) => {
+  try {
+    const userID = req.query.idUser as string;
+
+    if (!userID) {
+      return res.status(400).json({ error: "Falta el parámetro: userID" });
+    }
+    const parsedUserId = parseInt(userID, 10);
+
+    if (isNaN(parsedUserId)) {
+      return res
+        .status(400)
+        .json({ error: "El parámetro userID debe ser un número" });
+    }
+
+    const User = await prisma.user.findUnique({
+      where: { idUser: parsedUserId },
+    });
+
+    if (!User) {
+      return res.status(404).json({ error: "Usuario no encontrado" });
+    }
+
+    res.json(User);
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ error: "Ocurrio un error tratando de buscar la Tarea" });
+  }
+};
+
+const putUser = async (req: Request, res: Response) => {
+  try {
+    const IDUser = parseInt(req.params.idUser);
+
+    const usernameData = req.body.username;
+    const imageData = req.body.image;
+
+    // Check if image data is present in the request
+    // console.log(usernameData);
+    // console.log(imageData);
+
+    const updatedUser = await prisma.user.update({
+      where: {
+        idUser: IDUser, // Replace with your logic for user ID
+      },
+      data: {
+        username: usernameData,
+        image: imageData, // Use the image data from the request body
+      },
+    });
+    if (updatedUser) {
+      res.status(200).json(updatedUser);
+    } else {
+      res.status(404).json({ error: "Usuario no encontrado" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Ocurrio un error actualizando al Usuario" });
+  }
+};
+const updatePassword = async (req: Request, res: Response) => {
+  try {
+    const IDUser = parseInt(req.params.idUser);
+
+    const newPassword = req.body.password;
+
+    // console.log(newPassword);
+
+    const hashedPassword = bcrypt.hashSync(newPassword, 8);
+
+    const updatedUser = await prisma.user.update({
+      where: {
+        idUser: IDUser, // Replace with your logic for user ID
+      },
+      data: {
+        password: hashedPassword,
+      },
+    });
+    if (updatedUser) {
+      res.status(200).json(updatedUser);
+    } else {
+      res.status(404).json({ error: "Usuario no encontrado" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Ocurrio un error actualizando al Usuario" });
+  }
+};
+const deleteUser = async (req: Request, res: Response) => {
+  try {
+    const userID = parseInt(req.params.idUser);
+
+    const deletedUser = await prisma.user.delete({
+      where: { idUser: userID },
+    });
+
+    if (deletedUser) {
+      res.status(200).json({ message: "Usuario eliminado correctamente" });
+    } else {
+      res.status(404).json({ error: "El usuario no existe" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Ocurrio un error eliminando al Usuario" });
+  }
+};
+
+export { getUser, putUser, updatePassword, deleteUser };

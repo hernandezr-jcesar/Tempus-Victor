@@ -1,0 +1,153 @@
+<div class="centrar-pantalla">
+  <div class="div-centrado">
+    <!-- Titulo y Buscador -->
+    <div class="row">
+      <div class="col-12 d-flex justify-content-center">
+        <h1 class="titulo">TAREAS COMPLETADAS</h1>
+      </div>
+      <!-- BUSCADOR -->
+      <div class="col-12 d-flex justify-content-center">
+        <div class="buscador">
+          <div class="input-group">
+            <div class="form-outline" data-mdb-input-init>
+              <input
+                matTooltip="AQUI PUEDES FILTRAR A LAS TAREAS POR PALABRAS"
+                [matTooltipPosition]="'before'"
+                type="search"
+                id="search-note"
+                class="form-control input-search"
+                placeholder="Buscar Tarea"
+                aria-label="Search"
+                (input)="onSearchChange($event)"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Lista tareas y botones -->
+    <div class="row centrar-row">
+      <div
+        class="col-12 tareas_Finalizadas overflow-y-auto d-flex justify-content-center"
+      >
+        <ul class="list-group list-group-flush">
+          <li
+            class="list-group-item note-item"
+            *ngFor="let tarea of FiltertareasFinalizadas"
+            (click)="onTaskClick(tarea)"
+            [ngClass]="{ selected: tarea === selectedTask }"
+          >
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                id="task-checkbox-{{ tarea.idTask }}"
+                [(ngModel)]="tarea.status"
+              />
+            </div>
+            <p>
+              {{ tarea.title }}
+              |
+              {{ tarea.description }}
+              |
+              {{ tarea.comments }}
+              |
+              {{ tarea.deadline | date : "mediumDate" }}
+              |
+              {{ tarea.deadline | date : "shortTime" }}
+            </p>
+          </li>
+          <p *ngIf="FiltertareasFinalizadas.length == 0">
+            No hay ninguna tarea finalizada
+          </p>
+        </ul>
+      </div>
+
+      <div class="row fila_botones">
+        <div class="col-6 izquierda">
+          <a
+            matTooltip="BOTON PARA REGRESAR A LISTA DE TAREAS"
+            [matTooltipPosition]="'before'"
+            class="boton-regresar nav-link"
+            (click)="Cancelar()"
+          >
+            <img
+              src="../../../assets/tasks/Regresar.png"
+              alt="Logo"
+              class="imagen_boton"
+            />
+            Regresar
+          </a>
+        </div>
+        <div
+          class="col-6 d-flex justify-content-end tareas_finalizadas"
+          *ngIf="showButtons"
+        >
+          <a
+            matTooltip="BOTON PARA CAMBIAR ESTADO DE LA TAREA SELECCIONADA A NO FINALIZADA"
+            [matTooltipPosition]="'before'"
+            class="boton nav-link"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+            ><img
+              src="../../../../assets/tasks/Estado_Tarea.png"
+              alt="Logo"
+              class="imagen_boton"
+            />
+            Cambiar Estado a No Completada</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+    #confirmationModal
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">
+            Cambiar estado Tarea
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            (click)="CancelarModal()"
+          ></button>
+        </div>
+        <div class="modal-body">
+          ¿Deseas cambiar el estado de la tarea a no finalizada?
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+            (click)="CancelarModal()"
+          >
+            Cancelar
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-dismiss="modal"
+            (click)="Finalizar()"
+          >
+            Cambiar Estado
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
