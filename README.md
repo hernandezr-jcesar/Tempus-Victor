@@ -24,11 +24,13 @@
   
 **Backend:**  		
 ```
+$ npm install
 $ npm run build
 $ npm run start  
  ```
 **Frontend:**
 ```
+$ npm install
 $ npm run start  
  ```
 De esta forma se puede acceder al sistema por medio de cualquier navegador web en   
